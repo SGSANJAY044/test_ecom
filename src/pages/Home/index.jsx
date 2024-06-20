@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react'
 import './index.scss'
 import logo from 'assets/surveysparrow_logo.jpeg'
 import API from 'api/index';
+
 import { FaShoppingCart } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
 import { FaBagShopping,FaStar } from "react-icons/fa6";
-import { Box,Flex,Avatar,Grid,Button } from "@sparrowengg/twigs-react";
+
+import { SearchIcon } from '@sparrowengg/twigs-react-icons';
+import { Box,Flex,Avatar,Grid,Button,Text,Input} from "@sparrowengg/twigs-react";
 function Home() {
   const [products,setProducts]=useState(null)
-
+  const [searchWord,setSearchWord]=useState("")
   const getData=async()=>{
     try{
       const data=await API.get('/products')
       setProducts(data.data)
-      console.log(products)
     }
     catch(e){
       alert(e)
     }
   }
-
   useEffect(()=>{
     getData()
   },[])
@@ -47,6 +48,10 @@ function Home() {
           gap:30,
           padding:30
         }}>
+          <Input css={{
+            width:300,
+            fontFamily:'sans-serif'
+          }} placeholder="Search" leftIcon={<SearchIcon size={200}/>} size='lg' onChange={(e)=>setSearchWord(e.target.value)}/>
           <FaShoppingCart className='icon'/>
           <IoIosSettings className='icon'/>
         </Flex>
@@ -54,7 +59,7 @@ function Home() {
       {/* Shopping List */}
       <Grid css={{padding:10}} width={300} gap={[20,20]}>
         {
-          products && products.map((product)=>(
+          products? products.filter(product=> searchWord!=""?product.title.indexOf(searchWord)>-1:true).map((product)=>(
             <Flex css={{
             boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;',
             padding:20,
@@ -78,7 +83,12 @@ function Home() {
                 }
               </Flex>
               <img src={product.image} alt={product.title} className='card-img'/>   
-              <Box>{product.title}</Box>
+              <Text css={{
+                height:20,
+                width:300,
+                fontFamily:'sans-serif',
+                fontSize:'$lg'
+              }} truncate>{product.title}</Text>
               <Flex css={{
                 gap:10
               }}>
@@ -95,7 +105,7 @@ function Home() {
                 }} color={'light'} leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
               </Flex>
             </Flex>
-          ))
+          )):<Flex>Data is Retriving</Flex>
         }
       </Grid>
     </>
