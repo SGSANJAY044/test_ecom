@@ -1,5 +1,5 @@
 import React from 'react'
-import {Home} from './pages/pages'
+import {Home} from 'pages'
 import { Route,Routes } from 'react-router-dom'
 function AllRoutes() {
   return (
