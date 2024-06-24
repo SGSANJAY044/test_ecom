@@ -4,28 +4,48 @@ import logo from 'assets/surveysparrow_logo.jpeg'
 import API from 'api/index';
 
 import { FaShoppingCart } from "react-icons/fa";
-import { IoIosSettings } from "react-icons/io";
 import { FaBagShopping,FaStar } from "react-icons/fa6";
+import { FaFilter } from "react-icons/fa";
 
 import { SearchIcon } from '@sparrowengg/twigs-react-icons';
 import { Box,Flex,Avatar,Grid,Button,Text,Input} from "@sparrowengg/twigs-react";
+
+import { useDispatch } from 'react-redux';
+
+import ProductCart from 'components/Home/ProductCart';
+import { useSelector } from 'react-redux';
+import FilterDrawer from 'components/Home/FilterDrawer';
+import { setProductsData } from '../../redux/Products';
+
+
 function Home() {
-  const [products,setProducts]=useState(null)
+  const dispatch = useDispatch();
+  const currentCart = useSelector((state) => state.cart.currentCart);
+  const products = useSelector((state) => state.products.currentProducts);
+  const [totalCart, setTotalCart] = useState(0)
   const [searchWord,setSearchWord]=useState("")
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+
   const getData=async()=>{
     try{
       const data=await API.get('/products')
-      setProducts(data.data)
+      dispatch(setProductsData(data.data.map((item) => ({ ...item, cartCount: 0 }))))
     }
     catch(e){
       alert(e)
     }
   }
+
+  // console.log(products);
   useEffect(()=>{
     getData()
   },[])
+
+
   return (
     <>
+      {/* Drawer */}
+      <FilterDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
       {/* Nav */}
       <Flex css={{
         height:80,
@@ -52,59 +72,28 @@ function Home() {
             width:300,
             fontFamily:'sans-serif'
           }} placeholder="Search" leftIcon={<SearchIcon size={200}/>} size='lg' onChange={(e)=>setSearchWord(e.target.value)}/>
-          <FaShoppingCart className='icon'/>
-          <IoIosSettings className='icon'/>
+          <Box css={{ position: 'relative' }}>
+            <FaShoppingCart className='cart-icon' />
+            <Flex css={{
+              position: 'absolute',
+              top: -4,
+              right: -8,
+              color: '$white900',
+              background: 'red',
+              fontSize: '$sm',
+              height: 15,
+              width: 15,
+              borderRadius: 200
+            }} justifyContent='center' alignItems='center'>{totalCart}</Flex>
+          </Box>
+          <FaFilter className='filter-icon' onClick={() => setIsDrawerOpen(true)} />
         </Flex>
       </Flex>
       {/* Shopping List */}
       <Grid css={{padding:10}} width={300} gap={[20,20]}>
         {
           products? products.filter(product=> searchWord!=""?product.title.indexOf(searchWord)>-1:true).map((product)=>(
-            <Flex css={{
-            boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;',
-            padding:20,
-            borderRadius:15,
-            position:'relative',
-            textAlign:'center'
-            }}
-            alignItems='center'
-            flexDirection='column'
-            gap={30}
-            >
-              <Flex css={{
-                position:'absolute',
-                right:10,
-                top:10,
-              }}>
-                {
-                  [...Array(5)].map((index,value)=>(
-                    value<=Math.round(product.rating.rate)-1?<FaStar className='yellow-star'/>:<FaStar className='star'/>
-                  ))
-                }
-              </Flex>
-              <img src={product.image} alt={product.title} className='card-img'/>   
-              <Text css={{
-                height:20,
-                width:300,
-                fontFamily:'sans-serif',
-                fontSize:'$lg'
-              }} truncate>{product.title}</Text>
-              <Flex css={{
-                gap:10
-              }}>
-                <Button css={{
-                  padding:20,
-                  fontFamily:'monospace',
-                  fontSize:'$md'
-                }} leftIcon={<FaBagShopping/>}>Buy Now</Button>
-                 <Button css={{
-                  padding:20,
-                  fontFamily:'monospace',
-                  fontSize:'$md',
-                  color:'$primary400'
-                }} color={'light'} leftIcon={<FaShoppingCart/>}>Add to Cart</Button>
-              </Flex>
-            </Flex>
+            <ProductCart product={product} cartStatus={false} setTotalCart={setTotalCart} setProducts={setProductsData} />
           )):<Flex>Data is Retriving</Flex>
         }
       </Grid>
