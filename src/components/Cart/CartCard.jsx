@@ -40,10 +40,12 @@ function CartCard({ product }) {
                         fontSize: '$xl',
                         fontWeight: '$5'
                     }}>{product.title}</Box>
-                    <Box css={{
+                    <Text css={{
                         fontFamily: 'sans-serif',
                         textTransform: 'capitalize',
-                    }}>{product.description}</Box>
+                        fontSize: '$md',
+                        height: 98
+                    }} showLines >{product.description}</Text>
                 </Flex>
                 <Button css={{
                     padding: 20,
