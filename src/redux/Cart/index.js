@@ -22,7 +22,7 @@ const cartSlice = createSlice({
       }
     },
     clearCartData: (state) => {
-      state.currentCart = null;
+      state.currentCart = [];
     },
   },
 });

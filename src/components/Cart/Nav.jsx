@@ -1,7 +1,12 @@
 import React from 'react'
 import logo from '../../assets/surveysparrow_logo.jpeg'
+import { MdDeleteSweep } from "react-icons/md";
 import { Flex, Avatar, Box } from '@sparrowengg/twigs-react'
+import { useDispatch } from 'react-redux';
+import { clearCartData } from '../../redux/Cart';
+
 function Nav() {
+    const dispatch = useDispatch()
     return (
         <Flex css={{
             height: 80,
@@ -19,6 +24,9 @@ function Nav() {
                     letterSpacing: 1,
                     fontWeight: '$9'
                 }} >SPARROWMART</Box>
+            </Flex>
+            <Flex>
+                <MdDeleteSweep className='delete-icon' onClick={() => dispatch(clearCartData())} />
             </Flex>
         </Flex>
     )

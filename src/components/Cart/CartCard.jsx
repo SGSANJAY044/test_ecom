@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Text } from '@sparrowengg/twigs-react'
 import React from 'react'
+import { Box, Button, Flex, Text } from '@sparrowengg/twigs-react'
 import { FaBagShopping } from 'react-icons/fa6'
 
 function CartCard({ product }) {
