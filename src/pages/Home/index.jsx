@@ -4,11 +4,11 @@ import logo from 'assets/surveysparrow_logo.jpeg'
 import API from 'api/index';
 
 import { FaShoppingCart } from "react-icons/fa";
-import { FaBagShopping,FaStar } from "react-icons/fa6";
+import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 
 import { SearchIcon } from '@sparrowengg/twigs-react-icons';
-import { Box,Flex,Avatar,Grid,Button,Text,Input} from "@sparrowengg/twigs-react";
+import { Box, Flex, Avatar, Grid, Button, Text, Input } from "@sparrowengg/twigs-react";
 
 import { useDispatch } from 'react-redux';
 
@@ -23,55 +23,56 @@ function Home() {
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts);
   const [totalCart, setTotalCart] = useState(0)
-  const [searchWord,setSearchWord]=useState("")
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [searchWord, setSearchWord] = useState("")
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([])
 
-  const getData=async()=>{
-    try{
-      const data=await API.get('/products')
+  const getData = async () => {
+    try {
+      const data = await API.get('/products')
       dispatch(setProductsData(data.data.map((item) => ({ ...item, cartCount: 0 }))))
     }
-    catch(e){
+    catch (e) {
       alert(e)
     }
   }
 
   // console.log(products);
-  useEffect(()=>{
+  useEffect(() => {
     getData()
-  },[])
+  }, [])
 
 
   return (
     <>
       {/* Drawer */}
-      <FilterDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+      <FilterDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
       {/* Nav */}
       <Flex css={{
-        height:80,
-        margin:10,
-        padding:20,
-        borderRadius:20,
+        height: 80,
+        margin: 10,
+        padding: 20,
+        borderRadius: 20,
         background: '$primary300'
       }} alignItems='center' justifyContent='space-between'>
         <Flex alignItems='center' gap={20}>
-          <Avatar src={logo} name='sparrow' size='2xl'/>
+          <Avatar src={logo} name='sparrow' size='2xl' />
           <Box css={{
-            fontSize:'$2xl',
-            color:'$white900',
-            fontFamily:'sans-serif',
-            letterSpacing:1,
-            fontWeight:'$9'
+            fontSize: '$2xl',
+            color: '$white900',
+            fontFamily: 'sans-serif',
+            letterSpacing: 1,
+            fontWeight: '$9'
           }} >SPARROWMART</Box>
         </Flex>
         <Flex css={{
-          gap:30,
-          padding:30
+          gap: 30,
+          padding: 30
         }}>
           <Input css={{
-            width:300,
-            fontFamily:'sans-serif'
-          }} placeholder="Search" leftIcon={<SearchIcon size={200}/>} size='lg' onChange={(e)=>setSearchWord(e.target.value)}/>
+            width: 300,
+            fontFamily: 'sans-serif'
+          }} placeholder="Search" leftIcon={<SearchIcon size={200} />} size='lg' onChange={(e) => setSearchWord(e.target.value)} />
           <Box css={{ position: 'relative' }}>
             <FaShoppingCart className='cart-icon' />
             <Flex css={{
@@ -90,11 +91,11 @@ function Home() {
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <Grid css={{padding:10}} width={300} gap={[20,20]}>
+      <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
         {
-          products? products.filter(product=> searchWord!=""?product.title.indexOf(searchWord)>-1:true).map((product)=>(
+          products ? products.filter(product => (searchWord != "" ? product.title.indexOf(searchWord) > -1 : true) && (selectedCategories.length > 1 ? selectedCategories.includes(product.category) : true)).map((product) => (
             <ProductCart product={product} cartStatus={false} setTotalCart={setTotalCart} setProducts={setProductsData} />
-          )):<Flex>Data is Retriving</Flex>
+          )) : <Flex>Data is Retriving</Flex>
         }
       </Grid>
     </>
