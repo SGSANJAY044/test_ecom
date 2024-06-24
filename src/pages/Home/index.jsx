@@ -16,6 +16,7 @@ import ProductCart from 'components/Home/ProductCart';
 import { useSelector } from 'react-redux';
 import FilterDrawer from 'components/Home/FilterDrawer';
 import { setProductsData } from '../../redux/Products';
+import { Link } from 'react-router-dom';
 
 
 function Home() {
@@ -26,7 +27,7 @@ function Home() {
   const [searchWord, setSearchWord] = useState("")
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([])
-
+  console.log(currentCart);
   const getData = async () => {
     try {
       const data = await API.get('/products')
@@ -40,6 +41,11 @@ function Home() {
   // console.log(products);
   useEffect(() => {
     getData()
+    let total = 0
+    currentCart.map((product) => {
+      total += product.cartCount;
+    })
+    setTotalCart(total)
   }, [])
 
 
@@ -74,7 +80,7 @@ function Home() {
             fontFamily: 'sans-serif'
           }} placeholder="Search" leftIcon={<SearchIcon size={200} />} size='lg' onChange={(e) => setSearchWord(e.target.value)} />
           <Box css={{ position: 'relative' }}>
-            <FaShoppingCart className='cart-icon' />
+            <Link to='/Cart'><FaShoppingCart className='cart-icon' /></Link>
             <Flex css={{
               position: 'absolute',
               top: -4,
