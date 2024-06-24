@@ -99,7 +99,7 @@ function Home() {
       {/* Shopping List */}
       <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
         {
-          products ? products.filter(product => (searchWord != "" ? product.title.indexOf(searchWord) > -1 : true) && (selectedCategories.length > 1 ? selectedCategories.includes(product.category) : true)).map((product) => (
+          products ? products.filter(product => (searchWord != "" ? product.title.indexOf(searchWord) > -1 : true) && (selectedCategories.length > 0 ? selectedCategories.includes(product.category) : true)).map((product) => (
             <ProductCart product={product} cartStatus={false} setTotalCart={setTotalCart} setProducts={setProductsData} />
           )) : <Flex>Data is Retriving</Flex>
         }

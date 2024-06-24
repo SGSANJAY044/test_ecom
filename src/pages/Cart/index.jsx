@@ -14,7 +14,7 @@ function Cart() {
       <Grid css={{ padding: 10 }} width={600} gap={[20, 20]}>
         {
           currentCart.map((product => (
-            <CartCard product={product} />
+            <CartCard product={product} key={product.id} />
           )))
         }
       </Grid>

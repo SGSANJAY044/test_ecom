@@ -42,7 +42,7 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
                             Categories
                         </DropdownMenuTrigger>
 
-                        <DropdownMenuContent>
+                        <DropdownMenuContent css={{ zIndex: 9999 }}>
                             {categories.map((category) => <DropdownMenuItem onClick={() => addFilter(category)}>{category}</DropdownMenuItem>)}
                         </DropdownMenuContent>
                     </DropdownMenu>
