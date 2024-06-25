@@ -4,10 +4,9 @@ const API = axios.create({ baseURL: 'http://localhost:1810' })
 const authInterceptor = (req) => {
     const accessToken = JSON.parse(localStorage.getItem("user"))?.token;
     if (accessToken) {
-        console.log(accessToken);
+        // console.log(accessToken);
         req.headers.Authorization = `Bearer ${accessToken}`;
     }
-    console.log(JSON.parse(localStorage.getItem("user")));
     return req;
 };
 

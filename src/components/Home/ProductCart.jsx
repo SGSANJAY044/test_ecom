@@ -6,9 +6,11 @@ import { setCartData } from '../../redux/Cart';
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FaBagShopping, FaStar } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const products = useSelector((state) => state.products.currentProducts);
     const [cartCount, setCartCount] = useState(0)
     const [currentCartStatus, setCurrentCartStatus] = useState(cartStatus)
@@ -30,11 +32,14 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
             padding: 20,
             borderRadius: 15,
             position: 'relative',
-            textAlign: 'center'
+            textAlign: 'center',
+            cursor: 'pointer'
         }}
             alignItems='center'
             flexDirection='column'
             gap={30}
+            key={product.id}
+            onClick={() => navigate(`/product/${product.id}`)}
         >
             <Flex css={{
                 position: 'absolute',

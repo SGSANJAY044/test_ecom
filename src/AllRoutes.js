@@ -2,6 +2,7 @@ import React from 'react'
 import {Home, Cart, Login, Signup} from 'pages'
 import { Route,Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Product from 'pages/Product'
 function AllRoutes() {
   const currentUser = JSON.parse(localStorage.getItem("user"))?.token
   console.log(currentUser);
@@ -15,6 +16,7 @@ function AllRoutes() {
         <>
           <Route path="/Home" element={<Home />} />
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/product/:productId" element={<Product />} /> 
         </>
       }
 
