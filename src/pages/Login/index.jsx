@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import API from 'api';
+import { useDispatch } from 'react-redux';
+
 import image from '../../assets/landing.svg'
 import { Box, Button, Flex, FormInput } from '@sparrowengg/twigs-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { setUserData } from '../../redux/User';
 
 function Login() {
+    const [user, setUser] = useState({ email: "", password: "" });
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const login = async () => {
+        try {
+            const res = await API.put('/login', user);
+            if (res.data?.token) {
+                localStorage.setItem("user", JSON.stringify({ email: user.email, token: res.data.token }));
+                dispatch(setUserData({ email: user.email, token: res.data.token }))
+                navigate('/home')
+            }
+        }
+        catch (err) {
+            console.log("Error in login", err);
+            alert("Something went Wrong")
+        }
+    }
     return (
         <>
             <Flex css={{
@@ -28,15 +49,19 @@ function Login() {
                     <Flex flexDirection='column' gap={20}>
                         <FormInput size={'lg'}
                             label="Email Address"
+                            onChange={(e) => setUser(prev => ({ ...prev, email: e.target.value }))}
                         />
                         <FormInput
                             label="Password"
                             size={'lg'}
+                            value={user.password}
                             maxLength={16}
+                            showCount
+                            onChange={(e) => setUser(prev => ({ ...prev, password: e.target.value }))}
                         />
                     </Flex>
                     <Box css={{ textAlign: 'center', fontFamily: 'sans-serif', color: 'gray' }}>New here? <Link style={{ color: '#56b0bb', fontFamily: 'sans-serif' }} to='/signup'>Register now</Link></Box>
-                    <Button css={{ fontFamily: 'sans-serif' }} size={'lg'}>Login</Button>
+                    <Button css={{ fontFamily: 'sans-serif' }} size={'lg'} onClick={login}>Login</Button>
                 </Flex>
             </Flex >
         </>

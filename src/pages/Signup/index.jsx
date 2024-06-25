@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import image from '../../assets/landing.svg'
 import { Box, Button, Flex, FormInput } from '@sparrowengg/twigs-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, } from 'react-router-dom'
+import API from 'api';
 
 function Signup() {
+    const [user, setUser] = useState({ email: "", password: "" });
+    const navigate = useNavigate()
+    const signup = async () => {
+        try {
+            const res = await API.post('/signup', user);
+            if (res.data.email === user.email) {
+                navigate('/login')
+            }
+        }
+        catch (err) {
+            console.log("Error in signup", err);
+            alert("Something went Wrong")
+        }
+    }
+    // console.log(user);
     return (
         <>
             <Flex css={{
@@ -27,16 +43,19 @@ function Signup() {
 
                     <Flex flexDirection='column' gap={20}>
                         <FormInput size={'lg'}
-                            label="Email Address"
+                            label="Email Address" onChange={(e) => setUser(prev => ({ ...prev, email: e.target.value }))}
                         />
                         <FormInput
                             label="Password"
                             size={'lg'}
+                            value={user.password}
+                            showCount
                             maxLength={16}
+                            onChange={(e) => setUser(prev => ({ ...prev, password: e.target.value }))}
                         />
                     </Flex>
                     <Box css={{ textAlign: 'center', fontFamily: 'sans-serif', color: 'gray' }}>Already member? <Link style={{ color: '#56b0bb', fontFamily: 'sans-serif' }} to='/login'>Login here</Link></Box>
-                    <Button css={{ fontFamily: 'sans-serif' }} size={'lg'}>Signup</Button>
+                    <Button css={{ fontFamily: 'sans-serif' }} size={'lg'} onClick={signup} >Signup</Button>
                 </Flex>
             </Flex >
         </>
