@@ -43,13 +43,16 @@ function Signup() {
 
                     <Flex flexDirection='column' gap={20}>
                         <FormInput size={'lg'}
-                            label="Email Address" onChange={(e) => setUser(prev => ({ ...prev, email: e.target.value }))}
+                            label="Email Address"
+                            onChange={(e) => setUser(prev => ({ ...prev, email: e.target.value }))}
+                            type="email" 
                         />
                         <FormInput
                             label="Password"
                             size={'lg'}
                             value={user.password}
                             showCount
+                            type="password" 
                             maxLength={16}
                             onChange={(e) => setUser(prev => ({ ...prev, password: e.target.value }))}
                         />
