@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Button, Flex } from '@sparrowengg/twigs-react';
 import { FaBagShopping, FaStar } from 'react-icons/fa6';
-function ProductCard({ productData }) {
+function ProductDetails({ productData }) {
     return (
         <Flex css={{ height: '100%', paddingTop: 20 }} flexDirection='column' justifyContent='space-between'>
             <Flex flexDirection='column' gap={20}>
@@ -32,4 +32,4 @@ function ProductCard({ productData }) {
     )
 }
 
-export default ProductCard
+export default ProductDetails

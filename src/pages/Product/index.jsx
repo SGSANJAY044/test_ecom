@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom'
 import { Tabs, TabsList, TabsTrigger, TabsContent, Box, Button, Flex } from "@sparrowengg/twigs-react";
 import { FaBagShopping, FaStar } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
-import ProductCard from 'components/Product/ProductCard';
+import ProductDetails from 'components/Product/ProductDetails';
+import ProductReviews from 'components/Product/ProductReviews';
 
 function Product() {
     const location = useLocation();
@@ -62,16 +63,16 @@ function Product() {
                                 padding: 20,
                                 paddingBottom: 40
                             }}>
-                            <Tabs defaultValue="tab1">
+                            <Tabs defaultValue="tab1" css={{ width: '100%' }}>
                                 <TabsList aria-label="tabs example">
                                     <TabsTrigger value="tab1"> About </TabsTrigger>
                                     <TabsTrigger value="tab2"> Reviews </TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="tab1">
-                                    <ProductCard productData={productData} />
+                                    <ProductDetails productData={productData} />
                                 </TabsContent>
-                                <TabsContent value="tab2">
-                                    Tab 2
+                                <TabsContent value="tab2" css={{ overflow: 'scroll' }}>
+                                    <ProductReviews productReviews={productReviews} />
                                 </TabsContent>
                             </Tabs>
                         </Flex>
