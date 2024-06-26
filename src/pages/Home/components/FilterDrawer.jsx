@@ -7,6 +7,9 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
     const [categories, setCategories] = useState([...new Set(products.map(product => product.category))])
     console.log(categories);
 
+    useEffect(() => {
+        setCategories([...new Set(products.map(product => product.category))])
+    }, [products])
     const addFilter = (category) => {
         setSelectedCategories(prev => prev.includes(category) ? prev : [...prev, category])
     }
