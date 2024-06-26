@@ -33,13 +33,11 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
             borderRadius: 15,
             position: 'relative',
             textAlign: 'center',
-            cursor: 'pointer'
         }}
             alignItems='center'
             flexDirection='column'
             gap={30}
             key={product.id}
-            onClick={() => navigate(`/product/${product.id}`)}
         >
             <Flex css={{
                 position: 'absolute',
@@ -103,8 +101,9 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
                             <Button css={{
                                 padding: 20,
                                 fontFamily: 'monospace',
-                                fontSize: '$md'
-                            }} leftIcon={<FaBagShopping />}>
+                                fontSize: '$md',
+                                cursor: 'pointer'
+                            }} leftIcon={<FaBagShopping />} onClick={() => navigate(`/product/${product.id}`)}>
                                 Buy Now
                             </Button>
                             <Button css={{
