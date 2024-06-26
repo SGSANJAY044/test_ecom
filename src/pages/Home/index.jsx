@@ -38,6 +38,11 @@ function Home() {
     }
     catch (e) {
       console.log(e)
+      toast({
+        variant: "error",
+        title: "Error in signup",
+        description: e.message,
+      })
     }
   }
 

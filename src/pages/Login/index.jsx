@@ -22,7 +22,11 @@ function Login() {
         }
         catch (err) {
             console.log("Error in login", err);
-            // alert("Something went Wrong")
+            toast({
+                variant: "error",
+                title: "Error in login",
+                description: err.message,
+            })
         }
     }
     return (
