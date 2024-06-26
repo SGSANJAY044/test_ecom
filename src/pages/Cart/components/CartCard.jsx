@@ -1,9 +1,10 @@
 import React from 'react'
 import { Box, Button, Flex, Text } from '@sparrowengg/twigs-react'
 import { FaBagShopping } from 'react-icons/fa6'
+import { useNavigate } from 'react-router-dom'
 
 function CartCard({ product }) {
-
+    const navigate = useNavigate()
     return (
         <Flex css={{
             boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;',
@@ -51,7 +52,7 @@ function CartCard({ product }) {
                     padding: 20,
                     fontFamily: 'monospace',
                     fontSize: '$md'
-                }} leftIcon={<FaBagShopping />}>
+                }} leftIcon={<FaBagShopping />} onClick={() => navigate(`/product/${product.id}`)}>
                     Buy Now
                 </Button>
             </Flex>

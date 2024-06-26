@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { Drawer, DrawerHeader, DrawerBody, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, Flex, Box, Chip } from "@sparrowengg/twigs-react";
+import { Drawer, DrawerHeader, DrawerBody, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, Flex, Box, Chip, Slider } from "@sparrowengg/twigs-react";
 import { CloseIcon } from '@sparrowengg/twigs-react-icons';
-function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSelectedCategories }) {
+function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSelectedCategories, setSelectedRating }) {
     const products = useSelector((state) => state.products.currentProducts);
     const [categories, setCategories] = useState([...new Set(products.map(product => product.category))])
     console.log(categories);
@@ -46,7 +46,7 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
                         </DropdownMenuTrigger>
 
                         <DropdownMenuContent css={{ zIndex: 9999 }}>
-                            {categories.map((category) => <DropdownMenuItem onClick={() => addFilter(category)}>{category}</DropdownMenuItem>)}
+                            {categories.map((index, category) => <DropdownMenuItem onClick={() => addFilter(category)} key={index}>{category}</DropdownMenuItem>)}
                         </DropdownMenuContent>
                     </DropdownMenu>
                     <Flex css={{
@@ -66,6 +66,20 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
                                 }} closable onClose={() => setSelectedCategories(prev => prev.filter(item => item != category))} size='md'>{category}</Chip>
                             ))
                         }
+                    </Flex>
+                    <Flex css={{ paddingTop: 30 }} flexDirection='column' gap={20}>
+                        <Box css={{ fontFamily: 'sans-serif', fontSize: '$lg', color: '$primary400' }}>Price</Box>
+                        <Slider
+                            defaultValue={[2]}
+                            min={1}
+                            max={5}
+                            labels={{
+                                left: "1 Star",
+                                right: "5 Star",
+                            }}
+                            labelPlacement="bottom"
+                            onClick={(e) => console.log(e.target.value)}
+                        />
                     </Flex>
                 </DrawerBody>
             </Drawer>

@@ -3,7 +3,7 @@ import API from 'api';
 import { useDispatch } from 'react-redux';
 
 import image from '../../assets/landing.svg'
-import { Box, Button, Flex, FormInput } from '@sparrowengg/twigs-react'
+import { Box, Button, Flex, FormInput, toast } from '@sparrowengg/twigs-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { setUserData } from '../../redux/User';
 

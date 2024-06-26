@@ -8,7 +8,7 @@ import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 
 import { SearchIcon } from '@sparrowengg/twigs-react-icons';
-import { Box, Flex, Avatar, Grid, Button, Text, Input } from "@sparrowengg/twigs-react";
+import { Box, Flex, Avatar, Grid, Button, Text, Input, toast } from "@sparrowengg/twigs-react";
 
 import { useDispatch } from 'react-redux';
 
@@ -30,6 +30,7 @@ function Home() {
   const [searchWord, setSearchWord] = useState("")
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedRating, setSelectedRating] = useState(0)
   console.log(currentCart);
   const getData = async () => {
     try {
@@ -59,7 +60,7 @@ function Home() {
   return (
     <>
       {/* Drawer */}
-      <FilterDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+      <FilterDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} setSelectedRating={setSelectedRating} />
       {/* Nav */}
       <Flex css={{
         height: 80,
@@ -104,7 +105,7 @@ function Home() {
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setProductsData={setProductsData} setTotalCart={setTotalCart} loading={products.length <= 0} />
+      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setProductsData={setProductsData} setTotalCart={setTotalCart} selectedRating={selectedRating} loading={products.length <= 0} />
     </>
   )
 }
