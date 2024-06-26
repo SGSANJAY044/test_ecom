@@ -6,7 +6,12 @@ import { FaStar } from 'react-icons/fa';
 
 const ProductReviewContext = createContext();
 
-
+// coustom Hook 
+const useProductReviewContext = () => {
+    const data = useContext(ProductReviewContext);
+    if (!data) console.log("No review Data");
+    return data
+}
 
 function ProductReviewCard({ children, review }) {
     return (
@@ -24,17 +29,17 @@ function ProductReviewCard({ children, review }) {
 }
 
 ProductReviewCard.Customer = function Customer() {
-    const review = useContext(ProductReviewContext)
+    const review = useProductReviewContext()
     return <Box>{review.customer}</Box>
 }
 
 ProductReviewCard.Review = function Review() {
-    const review = useContext(ProductReviewContext)
+    const review = useProductReviewContext()
     return <Box>{review.review}</Box>
 }
 
 ProductReviewCard.Rating = function Rating() {
-    const review = useContext(ProductReviewContext)
+    const review = useProductReviewContext()
     return <Flex css={{
         fontSize: '$2xl'
     }} gap={5}>
