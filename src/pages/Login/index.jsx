@@ -22,7 +22,7 @@ function Login() {
         }
         catch (err) {
             console.log("Error in login", err);
-            alert("Something went Wrong")
+            // alert("Something went Wrong")
         }
     }
     return (

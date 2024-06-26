@@ -17,7 +17,10 @@ import { useSelector } from 'react-redux';
 import FilterDrawer from 'pages/Home/components/FilterDrawer';
 import { setProductsData } from '../../redux/Products';
 import { Link } from 'react-router-dom';
+import Loader from '../../components/Loader';
+import HomeFeed from './components/HomeFeed';
 
+const UseLoader = Loader(HomeFeed)
 
 function Home() {
   const dispatch = useDispatch();
@@ -34,7 +37,7 @@ function Home() {
       dispatch(setProductsData(data.data.map((item) => ({ ...item, cartCount: 0 }))))
     }
     catch (e) {
-      alert(e)
+      console.log(e)
     }
   }
 
@@ -47,7 +50,6 @@ function Home() {
     })
     setTotalCart(total)
   }, [])
-
 
   return (
     <>
@@ -97,13 +99,7 @@ function Home() {
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
-        {
-          products ? products.filter(product => (searchWord != "" ? product.title.indexOf(searchWord) > -1 : true) && (selectedCategories.length > 0 ? selectedCategories.includes(product.category) : true)).map((product) => (
-            <ProductCart product={product} cartStatus={false} setTotalCart={setTotalCart} setProducts={setProductsData} />
-          )) : <Flex>Data is Retriving</Flex>
-        }
-      </Grid>
+      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setProductsData={setProductsData} setTotalCart={setTotalCart} loading={products.length <= 0} />
     </>
   )
 }

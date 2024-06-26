@@ -16,7 +16,7 @@ function Signup() {
         }
         catch (err) {
             console.log("Error in signup", err);
-            alert("Something went Wrong")
+            // alert("Something went Wrong")
         }
     }
     // console.log(user);
