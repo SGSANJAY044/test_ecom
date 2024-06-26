@@ -6,6 +6,7 @@ import API from 'api/index';
 import { FaShoppingCart } from "react-icons/fa";
 import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
+import { PiSignOutBold } from "react-icons/pi";
 
 import { SearchIcon } from '@sparrowengg/twigs-react-icons';
 import { Box, Flex, Avatar, Grid, Button, Text, Input, toast } from "@sparrowengg/twigs-react";
@@ -16,7 +17,7 @@ import ProductCart from 'pages/Home/components/ProductCart';
 import { useSelector } from 'react-redux';
 import FilterDrawer from 'pages/Home/components/FilterDrawer';
 import { setProductsData } from '../../redux/Products';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader';
 import HomeFeed from './components/HomeFeed';
 
@@ -24,14 +25,18 @@ const UseLoader = Loader(HomeFeed)
 
 function Home() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts);
+
   const [totalCart, setTotalCart] = useState(0)
   const [searchWord, setSearchWord] = useState("")
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedRating, setSelectedRating] = useState(0)
-  console.log(currentCart);
+
+
   const getData = async () => {
     try {
       const data = await API.get('/products')
@@ -47,7 +52,11 @@ function Home() {
     }
   }
 
-  // console.log(products);
+  const signOut = () => {
+    localStorage.setItem("user", null)
+    navigate('/')
+  }
+
   useEffect(() => {
     getData()
     let total = 0
@@ -102,6 +111,7 @@ function Home() {
             }} justifyContent='center' alignItems='center'>{totalCart}</Flex>
           </Box>
           <FaFilter className='filter-icon' onClick={() => setIsDrawerOpen(true)} />
+          <PiSignOutBold className='sign-out' onClick={signOut} />
         </Flex>
       </Flex>
       {/* Shopping List */}
