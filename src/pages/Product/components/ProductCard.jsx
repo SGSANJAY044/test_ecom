@@ -8,13 +8,13 @@ function ProductCard({ productData, productReviews }) {
             height: '80vh',
             padding: 20
         }} alignItems='center' justifyContent='center'>
-            <Flex css={{ height: '100%', width: '100%' }} alignItems='center' justifyContent='center'>
-                <img src={productData.image} alt="" style={{ height: '100%' }} />
+            <Flex css={{ height: '100%', width: '50%' }} alignItems='center' justifyContent='center'>
+                <img src={productData.image} alt="" style={{ height: '100%', maxWidth: '90%' }} />
             </Flex>
             <Flex
                 css={{
                     height: '100%',
-                    width: '100%',
+                    width: '50%',
                     boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;',
                     borderRadius: 20,
                     padding: 20,
