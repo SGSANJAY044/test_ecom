@@ -1,9 +1,9 @@
 import React from 'react'
-import logo from '../../assets/surveysparrow_logo.jpeg'
+import logo from '../../../assets/surveysparrow_logo.jpeg'
 import { MdDeleteSweep } from "react-icons/md";
 import { Flex, Avatar, Box } from '@sparrowengg/twigs-react'
 import { useDispatch } from 'react-redux';
-import { clearCartData } from '../../redux/Cart';
+import { clearCartData } from '../../../redux/Cart';
 
 function Nav() {
     const dispatch = useDispatch()

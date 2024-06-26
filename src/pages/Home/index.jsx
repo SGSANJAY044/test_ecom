@@ -12,9 +12,9 @@ import { Box, Flex, Avatar, Grid, Button, Text, Input } from "@sparrowengg/twigs
 
 import { useDispatch } from 'react-redux';
 
-import ProductCart from 'components/Home/ProductCart';
+import ProductCart from 'pages/Home/components/ProductCart';
 import { useSelector } from 'react-redux';
-import FilterDrawer from 'components/Home/FilterDrawer';
+import FilterDrawer from 'pages/Home/components/FilterDrawer';
 import { setProductsData } from '../../redux/Products';
 import { Link } from 'react-router-dom';
 

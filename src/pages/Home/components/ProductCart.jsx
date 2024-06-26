@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Flex, Button, Text } from "@sparrowengg/twigs-react";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCartData } from '../../redux/Cart';
+import { setCartData } from '../../../redux/Cart';
 
 
 import { FaShoppingCart } from "react-icons/fa";

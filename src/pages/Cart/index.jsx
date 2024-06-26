@@ -1,8 +1,8 @@
 import React from 'react'
 import './index.scss'
 import { Grid } from '@sparrowengg/twigs-react';
-import CartCard from 'components/Cart/CartCard';
-import Nav from 'components/Cart/Nav'
+import CartCard from './components/CartCard';
+import Nav from './components/Nav'
 import { useSelector } from 'react-redux';
 
 function Cart() {

@@ -1,12 +1,12 @@
 import API from 'api';
-import Nav from 'components/Product/Nav';
+import Nav from 'pages/Product/components/Nav';
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Tabs, TabsList, TabsTrigger, TabsContent, Box, Button, Flex } from "@sparrowengg/twigs-react";
 import { FaBagShopping, FaStar } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
-import ProductDetails from 'components/Product/ProductDetails';
-import ProductReviews from 'components/Product/ProductReviews';
+import ProductDetails from './components/ProductDetails';
+import ProductReviews from './components/ProductReviews';
 
 function Product() {
     const location = useLocation();

@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../assets/surveysparrow_logo.jpeg'
+import logo from '../../../assets/surveysparrow_logo.jpeg'
 import { Flex, Avatar, Box } from '@sparrowengg/twigs-react'
 
 function Nav() {
