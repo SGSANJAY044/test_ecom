@@ -1,7 +1,6 @@
 import React from 'react'
 import {Home, Cart, Login, Signup} from 'pages'
-import { Route,Routes } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
 import Product from 'pages/Product'
 function AllRoutes() {
   const currentUser = JSON.parse(localStorage.getItem("user"))?.token
