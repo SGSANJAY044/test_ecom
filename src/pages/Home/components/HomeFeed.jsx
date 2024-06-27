@@ -9,7 +9,7 @@ function HomeFeed({ products, setTotalCart, setProductsData, searchWord, selecte
     return (
         <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
             {
-                products && products.filter(product => searchQuery(product) && categoriesFilter(product) && ratingFilter()).map((product) => (
+                products && products.filter(product => searchQuery(product) && categoriesFilter(product) && ratingFilter(product)).map((product) => (
                     <ProductCart product={product} cartStatus={false} setTotalCart={setTotalCart} setProducts={setProductsData} key={product.id} />
                 ))
             }

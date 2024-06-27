@@ -46,7 +46,7 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
                         </DropdownMenuTrigger>
 
                         <DropdownMenuContent css={{ zIndex: 9999 }}>
-                            {categories.map((index, category) => <DropdownMenuItem onClick={() => addFilter(category)} key={index}>{category}</DropdownMenuItem>)}
+                            {categories.map((category, index) => <DropdownMenuItem onClick={() => addFilter(category)} key={index}>{category}</DropdownMenuItem>)}
                         </DropdownMenuContent>
                     </DropdownMenu>
                     <Flex css={{
@@ -70,7 +70,7 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
                     <Flex css={{ paddingTop: 30 }} flexDirection='column' gap={20}>
                         <Box css={{ fontFamily: 'sans-serif', fontSize: '$lg', color: '$primary400' }}>Price</Box>
                         <Slider
-                            defaultValue={[2]}
+                            defaultValue={[0]}
                             min={1}
                             max={5}
                             labels={{
@@ -78,7 +78,7 @@ function FilterDrawer({ isDrawerOpen, setIsDrawerOpen, selectedCategories, setSe
                                 right: "5 Star",
                             }}
                             labelPlacement="bottom"
-                            onClick={(e) => console.log(e.target.value)}
+                            onValueChange={(value) => setSelectedRating(value[0])}
                         />
                     </Flex>
                 </DrawerBody>
