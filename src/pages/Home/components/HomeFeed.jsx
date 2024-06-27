@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import ProductCart from './ProductCart'
 import API from 'api'
 
-function HomeFeed({ products, setTotalCart, searchWord, selectedCategories, selectedRating }) {
-    const [productData, setProductsData] = useState(products)
+function HomeFeed({ products, setTotalCart, setProductsData, searchWord, selectedCategories, selectedRating }) {
+    const [productData, setProductData] = useState(products)
     const getFilterData = async () => {
         try {
             let query = ""
@@ -15,7 +15,7 @@ function HomeFeed({ products, setTotalCart, searchWord, selectedCategories, sele
             }
             const data = await API.get(`/products/filter?${query}`)
             console.log(data.data)
-            setProductsData(data.data)
+            setProductData(data.data)
         } catch (err) {
 
         }

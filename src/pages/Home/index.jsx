@@ -113,7 +113,7 @@ function Home() {
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setTotalCart={setTotalCart} selectedRating={selectedRating} loading={products.length <= 0} />
+      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setProductsData={setProductsData} setTotalCart={setTotalCart} selectedRating={selectedRating} loading={products.length <= 0} />
     </>
   )
 }
