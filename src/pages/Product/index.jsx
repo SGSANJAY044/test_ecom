@@ -46,7 +46,7 @@ function Product() {
         <>
             <Nav />
             <UseLoader productData={productData} productReviews={productReviews} loading={productData == null} />
-        </>
+        </> 
     )
 }
 

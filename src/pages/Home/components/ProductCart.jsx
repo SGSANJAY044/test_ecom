@@ -69,7 +69,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
                             fontSize: '$lg',
                             width: 120,
                             textAlign: 'center'
-                        }} onClick={() => addCart(product)}>OK</Button>
+                        }} onClick={() => addCart(product)} key={'OK Button'}>OK</Button>
 
                         <Button css={{
                             padding: 20,
