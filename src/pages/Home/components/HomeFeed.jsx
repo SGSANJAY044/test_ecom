@@ -10,6 +10,7 @@ function HomeFeed({
   searchWord,
   selectedCategories,
   selectedRating,
+  currentPage,
 }) {
   const [productData, setProductData] = useState(products);
   const getFilterData = async () => {
@@ -21,9 +22,10 @@ function HomeFeed({
         if (selectedCategories.length > 0) query += "&";
         query += "rating=" + selectedRating;
       }
-      const data = await API.get(`/products/filter?${query}`);
-      console.log(data.data);
-      setProductData(data.data);
+      const data = await API.get(
+        `/products/filter?${query}&pageno=${currentPage}`
+      );
+      setProductData(data.data.data);
     } catch (err) {
       console.log(err);
       toast({
@@ -35,8 +37,11 @@ function HomeFeed({
   };
   const getSearchData = async () => {
     try {
-      const data = await API.get(`/products/search?searchWord=${searchWord}`);
-      setProductData(data.data);
+      const data = await API.get(
+        `/products/search?searchWord=${searchWord}&pageno=${currentPage}`
+      );
+      console.log(data.data);
+      setProductData(data.data.data);
     } catch (err) {
       toast({
         variant: "error",
@@ -47,23 +52,25 @@ function HomeFeed({
   };
   useEffect(() => {
     getSearchData();
-  }, [searchWord]);
+  }, [currentPage, searchWord]);
   useEffect(() => {
     getFilterData();
-  }, [selectedCategories, selectedRating]);
+  }, [currentPage, selectedCategories, selectedRating]);
   return (
-    <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
-      {productData &&
-        productData.map((product) => (
-          <ProductCart
-            product={product}
-            cartStatus={false}
-            setTotalCart={setTotalCart}
-            setProducts={setProductsData}
-            key={product.id}
-          />
-        ))}
-    </Grid>
+    <>
+      <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
+        {productData &&
+          productData.map((product) => (
+            <ProductCart
+              product={product}
+              cartStatus={false}
+              setTotalCart={setTotalCart}
+              setProducts={setProductsData}
+              key={product.id}
+            />
+          ))}
+      </Grid>
+    </>
   );
 }
 
