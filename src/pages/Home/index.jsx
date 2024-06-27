@@ -27,6 +27,7 @@ function Home() {
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts);
 
+
   const [totalCart, setTotalCart] = useState(0)
   const [searchWord, setSearchWord] = useState("")
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -112,7 +113,7 @@ function Home() {
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setProductsData={setProductsData} setTotalCart={setTotalCart} selectedRating={selectedRating} loading={products.length <= 0} />
+      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setTotalCart={setTotalCart} selectedRating={selectedRating} loading={products.length <= 0} />
     </>
   )
 }
