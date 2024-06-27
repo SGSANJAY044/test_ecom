@@ -1,6 +1,5 @@
-import { Box, Flex } from '@sparrowengg/twigs-react'
+import { Flex } from '@sparrowengg/twigs-react'
 import React from 'react'
-import { FaStar } from 'react-icons/fa6';
 import ProductReviewCard from './ProductReviewCard';
 
 function ProductReviews({ productReviews }) {

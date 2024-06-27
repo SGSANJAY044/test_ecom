@@ -1,6 +1,6 @@
 // Loader as HOC component
 
-import React, { useState } from 'react'
+import React from 'react'
 import { CircleLoader, Flex } from "@sparrowengg/twigs-react";
 
 function Loader(WrappedComponet) {

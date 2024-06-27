@@ -35,7 +35,7 @@ function Login() {
                 width: '100vw',
                 height: '100vh',
             }} justifyContent='center' alignItems='center'>
-                <img src={image} alt="Login Image" />
+                <img src={image} alt="Login" />
                 <Flex css={{
                     width: '40%',
                     height: '50%',

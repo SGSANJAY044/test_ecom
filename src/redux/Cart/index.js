@@ -9,9 +9,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartData: (state, action) => {
-      if(state.currentCart.find((product)=>product.id==action.payload.id)!=undefined){
+      if (state.currentCart.find((product) => product.id === action.payload.id) !== undefined) {
         state.currentCart=state.currentCart.map((product)=>{
-            if(product.id==action.payload.id){
+          if (product.id === action.payload.id) {
                 return {...product,cartCount:product.cartCount+action.payload.cartCount}
             }
             return product

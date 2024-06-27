@@ -4,16 +4,13 @@ import logo from 'assets/surveysparrow_logo.jpeg'
 import API from 'api/index';
 
 import { FaShoppingCart } from "react-icons/fa";
-import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 import { PiSignOutBold } from "react-icons/pi";
 
 import { SearchIcon } from '@sparrowengg/twigs-react-icons';
-import { Box, Flex, Avatar, Grid, Button, Text, Input, toast } from "@sparrowengg/twigs-react";
+import { Box, Flex, Avatar, Input, toast } from "@sparrowengg/twigs-react";
 
 import { useDispatch } from 'react-redux';
-
-import ProductCart from 'pages/Home/components/ProductCart';
 import { useSelector } from 'react-redux';
 import FilterDrawer from 'pages/Home/components/FilterDrawer';
 import { setProductsData } from '../../redux/Products';
