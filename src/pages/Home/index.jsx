@@ -60,6 +60,7 @@ function Home() {
     let total = 0
     currentCart.map((product) => {
       total += product.cartCount;
+      return product;
     })
     setTotalCart(total)
   }, [])
@@ -67,55 +68,96 @@ function Home() {
   return (
     <>
       {/* Drawer */}
-      <FilterDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} setSelectedRating={setSelectedRating} />
+      <FilterDrawer
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+        setSelectedRating={setSelectedRating}
+      />
       {/* Nav */}
-      <Flex css={{
-        height: 80,
-        margin: 10,
-        padding: 20,
-        borderRadius: 20,
-        background: '$primary300'
-      }} alignItems='center' justifyContent='space-between'>
-        <Flex alignItems='center' gap={20}>
-          <Avatar src={logo} name='sparrow' size='2xl' />
-          <Box css={{
-            fontSize: '$2xl',
-            color: '$white900',
-            fontFamily: 'sans-serif',
-            letterSpacing: 1,
-            fontWeight: '$9'
-          }} >SPARROWMART</Box>
-        </Flex>
-        <Flex css={{
-          gap: 30,
-          padding: 30
-        }}>
-          <Input css={{
-            width: 300,
-            fontFamily: 'sans-serif'
-          }} placeholder="Search" leftIcon={<SearchIcon size={200} />} size='lg' onChange={(e) => setSearchWord(e.target.value)} />
-          <Box css={{ position: 'relative' }}>
-            <Link to='/Cart'><FaShoppingCart className='cart-icon' /></Link>
-            <Flex css={{
-              position: 'absolute',
-              top: -4,
-              right: -8,
-              color: '$white900',
-              background: 'red',
-              fontSize: '$sm',
-              height: 15,
-              width: 15,
-              borderRadius: 200
-            }} justifyContent='center' alignItems='center'>{totalCart}</Flex>
+      <Flex
+        css={{
+          height: 80,
+          margin: 10,
+          padding: 20,
+          borderRadius: 20,
+          background: "$primary300",
+        }}
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Flex alignItems="center" gap={20}>
+          <Avatar src={logo} name="sparrow" size="2xl" />
+          <Box
+            css={{
+              fontSize: "$2xl",
+              color: "$white900",
+              fontFamily: "sans-serif",
+              letterSpacing: 1,
+              fontWeight: "$9",
+            }}
+          >
+            SPARROWMART
           </Box>
-          <FaFilter className='filter-icon' onClick={() => setIsDrawerOpen(true)} />
-          <PiSignOutBold className='sign-out' onClick={signOut} />
+        </Flex>
+        <Flex
+          css={{
+            gap: 30,
+            padding: 30,
+          }}
+        >
+          <Input
+            css={{
+              width: 300,
+              fontFamily: "sans-serif",
+            }}
+            placeholder="Search"
+            leftIcon={<SearchIcon size={200} />}
+            size="lg"
+            onChange={(e) => setSearchWord(e.target.value)}
+          />
+          <Box css={{ position: "relative" }}>
+            <Link to="/Cart">
+              <FaShoppingCart className="cart-icon" />
+            </Link>
+            <Flex
+              css={{
+                position: "absolute",
+                top: -4,
+                right: -8,
+                color: "$white900",
+                background: "red",
+                fontSize: "$sm",
+                height: 15,
+                width: 15,
+                borderRadius: 200,
+              }}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {totalCart}
+            </Flex>
+          </Box>
+          <FaFilter
+            className="filter-icon"
+            onClick={() => setIsDrawerOpen(true)}
+          />
+          <PiSignOutBold className="sign-out" onClick={signOut} />
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <UseLoader products={products} searchWord={searchWord} selectedCategories={selectedCategories} setProductsData={setProductsData} setTotalCart={setTotalCart} selectedRating={selectedRating} loading={products.length <= 0} />
+      <UseLoader
+        products={products}
+        searchWord={searchWord}
+        selectedCategories={selectedCategories}
+        setProductsData={setProductsData}
+        setTotalCart={setTotalCart}
+        selectedRating={selectedRating}
+        loading={products.length <= 0}
+      />
     </>
-  )
+  );
 }
 
 export default Home
