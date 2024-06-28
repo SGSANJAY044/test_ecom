@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import './index.scss'
-import logo from 'assets/surveysparrow_logo.jpeg'
-import API from 'api/index';
+import React, { useEffect, useMemo, useState } from "react";
+import "./index.scss";
+import logo from "assets/surveysparrow_logo.jpeg";
+import API from "api/index";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
 import { PiSignOutBold } from "react-icons/pi";
 
-import { SearchIcon } from '@sparrowengg/twigs-react-icons';
+import { SearchIcon } from "@sparrowengg/twigs-react-icons";
 import {
   Box,
   Flex,
@@ -41,24 +41,27 @@ function Home() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
 
-  const getData = async () => {
-    try {
-      const data = await API.get(`/products?pageno=${currentPage}`);
-      console.log(data);
-      dispatch(
-        setProductsData(
-          data.data.data.map((item) => ({ ...item, cartCount: 0 }))
-        )
-      );
-    } catch (e) {
-      console.log(e);
-      toast({
-        variant: "error",
-        title: "Error in Fetch Data",
-        description: e.message,
-      });
-    }
-  };
+  const getData = useMemo(
+    () => async () => {
+      try {
+        const data = await API.get(`/products?pageno=${currentPage}`);
+        console.log(data);
+        dispatch(
+          setProductsData(
+            data.data.data.map((item) => ({ ...item, cartCount: 0 }))
+          )
+        );
+      } catch (e) {
+        console.log(e);
+        toast({
+          variant: "error",
+          title: "Error in Fetch Data",
+          description: e.message,
+        });
+      }
+    },
+    [currentPage]
+  );
 
   const signOut = () => {
     localStorage.setItem("user", null);
@@ -191,4 +194,4 @@ function Home() {
   );
 }
 
-export default Home
+export default Home;
