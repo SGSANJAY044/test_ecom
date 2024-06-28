@@ -65,6 +65,18 @@ function Home() {
     navigate("/");
   };
 
+  const debouncing = (func, timeout = 300) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, timeout);
+    };
+  };
+
+  const getDebouncing = debouncing(setSearchWord);
+
   useEffect(() => {
     getData();
     let total = 0;
@@ -125,7 +137,7 @@ function Home() {
             placeholder="Search"
             leftIcon={<SearchIcon size={200} />}
             size="lg"
-            onChange={(e) => setSearchWord(e.target.value)}
+            onChange={(e) => getDebouncing(e.target.value)}
           />
           <Box css={{ position: "relative" }}>
             <Link to="/Cart">
