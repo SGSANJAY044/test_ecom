@@ -14,19 +14,24 @@ const useProductReviewContext = () => {
 }
 
 function ProductReviewCard({ children, review }) {
-    return (
-        <ProductReviewContext.Provider value={review}>
-            <Flex css={{
-                width: '100%',
-                backgroundColor: '$primary100',
-                padding: 10,
-                borderRadius: 10
-            }} flexDirection='column' key={review.id} gap={10} >
-                {children}
-            </Flex>
-        </ProductReviewContext.Provider>
-    )
-}
+  return (
+    <ProductReviewContext.Provider value={review}>
+      <Flex
+        css={{
+          width: "100%",
+          backgroundColor: "$primary100",
+          padding: 10,
+          borderRadius: 10,
+        }}
+        flexDirection="column"
+        key={review.id}
+        gap={10}
+      >
+        {children}
+      </Flex>
+    </ProductReviewContext.Provider>
+  );
+} 
 
 ProductReviewCard.Customer = function Customer() {
     const review = useProductReviewContext()

@@ -24,13 +24,22 @@ import { setProductsData } from "../../redux/Products";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import HomeFeed from "./components/HomeFeed";
+import { useTranslation } from "react-i18next";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@sparrowengg/twigs-react";
+import { MdLanguage } from "react-icons/md";
+import { setLanguageData } from "../../redux/Language";
 
 const UseLoader = Loader(HomeFeed);
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts);
 
@@ -123,7 +132,7 @@ function Home() {
               fontWeight: "$9",
             }}
           >
-            SPARROWMART
+            {t("SPARROWMART")}
           </Box>
         </Flex>
         <Flex
@@ -131,7 +140,35 @@ function Home() {
             gap: 30,
             padding: 30,
           }}
+          alignItems="center"
         >
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              css={{
+                cursor: "pointer",
+                color: "white",
+                background: "$primary300",
+                border: "none",
+                fontWeight: "bold",
+                borderRadius: "8px",
+                fontFamily: "sans-serif",
+              }}
+            >
+              <MdLanguage className="lang-icon" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={(e) => dispatch(setLanguageData("en"))}
+              >
+                {t("English")}
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={(e) => dispatch(setLanguageData("tm"))}
+              >
+                {t("Tamil")}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Input
             css={{
               width: 300,
@@ -142,7 +179,7 @@ function Home() {
             size="lg"
             onChange={(e) => getDebouncing(e.target.value)}
           />
-          <Box css={{ position: "relative" }}>
+          <Flex css={{ position: "relative" }} alignItems="center">
             <Link to="/Cart">
               <FaShoppingCart className="cart-icon" />
             </Link>
@@ -163,7 +200,7 @@ function Home() {
             >
               {totalCart}
             </Flex>
-          </Box>
+          </Flex>
           <FaFilter
             className="filter-icon"
             onClick={() => setIsDrawerOpen(true)}

@@ -6,8 +6,10 @@ import { setCartData } from "../../../redux/Cart";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.currentProducts);
@@ -17,7 +19,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     dispatch(
       setProducts(
         products.map((currentproduct) => {
-          if (currentproduct.id == product.id) {
+          if (currentproduct.id === product.id) {
             return {
               ...product,
               cartCount: currentproduct.cartCount + cartCount,
@@ -32,6 +34,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     setCurrentCartStatus(false);
     setCartCount(0);
   };
+  console.log(t("Solid Gold Petite Micropave"));
   return (
     <Flex
       css={{
@@ -71,7 +74,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
         }}
         truncate
       >
-        {product.title}
+        {t(product.title)}
       </Text>
       <Flex
         css={{
@@ -144,7 +147,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
               leftIcon={<FaBagShopping />}
               onClick={() => navigate(`/product/${product.id}`)}
             >
-              Buy Now
+              {t("Buy Now")}
             </Button>
             <Button
               css={{
@@ -157,7 +160,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
               leftIcon={<FaShoppingCart />}
               onClick={() => setCurrentCartStatus(true)}
             >
-              Add to Cart
+              {t("Add to Cart")}
             </Button>
           </>
         )}

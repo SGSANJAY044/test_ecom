@@ -19,4 +19,4 @@ function ProductReviews({ productReviews }) {
     )
 }
 
-export default ProductReviews
+export default ProductReviews; 
