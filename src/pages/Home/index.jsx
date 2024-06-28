@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import './index.scss'
-import logo from 'assets/surveysparrow_logo.jpeg'
-import API from 'api/index';
+import React, { useEffect, useMemo, useState } from "react";
+import "./index.scss";
+import logo from "assets/surveysparrow_logo.jpeg";
+import API from "api/index";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
 import { PiSignOutBold } from "react-icons/pi";
 
-import { SearchIcon } from '@sparrowengg/twigs-react-icons';
-import { Box, Flex, Avatar, Input, toast } from "@sparrowengg/twigs-react";
+import { SearchIcon } from "@sparrowengg/twigs-react-icons";
+import {
+  Box,
+  Flex,
+  Avatar,
+  Input,
+  toast,
+  Pagination,
+} from "@sparrowengg/twigs-react";
 
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import FilterDrawer from 'pages/Home/components/FilterDrawer';
-import { setProductsData } from '../../redux/Products';
-import { Link, useNavigate } from 'react-router-dom';
-import Loader from '../../components/Loader';
-import HomeFeed from './components/HomeFeed';
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import FilterDrawer from "pages/Home/components/FilterDrawer";
+import { setProductsData } from "../../redux/Products";
+import { Link, useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
+import HomeFeed from "./components/HomeFeed";
 
-const UseLoader = Loader(HomeFeed)
+const UseLoader = Loader(HomeFeed);
 
 function Home() {
   const dispatch = useDispatch();
@@ -27,43 +34,61 @@ function Home() {
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts);
 
-
-  const [totalCart, setTotalCart] = useState(0)
-  const [searchWord, setSearchWord] = useState("")
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCart, setTotalCart] = useState(0);
+  const [searchWord, setSearchWord] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedRating, setSelectedRating] = useState(0)
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedRating, setSelectedRating] = useState(0);
 
-
-  const getData = async () => {
-    try {
-      const data = await API.get('/products')
-      dispatch(setProductsData(data.data.map((item) => ({ ...item, cartCount: 0 }))))
-    }
-    catch (e) {
-      console.log(e)
-      toast({
-        variant: "error",
-        title: "Error in signup",
-        description: e.message,
-      })
-    }
-  }
+  const getData = useMemo(
+    () => async () => {
+      try {
+        const data = await API.get(`/products?pageno=${currentPage}`);
+        console.log(data);
+        dispatch(
+          setProductsData(
+            data.data.data.map((item) => ({ ...item, cartCount: 0 }))
+          )
+        );
+      } catch (e) {
+        console.log(e);
+        toast({
+          variant: "error",
+          title: "Error in Fetch Data",
+          description: e.message,
+        });
+      }
+    },
+    [currentPage]
+  );
 
   const signOut = () => {
-    localStorage.setItem("user", null)
-    navigate('/')
-  }
+    localStorage.setItem("user", null);
+    navigate("/");
+  };
+
+  const debouncing = (func, timeout = 300) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, timeout);
+    };
+  };
+
+  const getDebouncing = debouncing(setSearchWord);
 
   useEffect(() => {
-    getData()
-    let total = 0
+    getData();
+    let total = 0;
     currentCart.map((product) => {
       total += product.cartCount;
       return product;
-    })
-    setTotalCart(total)
-  }, [])
+    });
+    setTotalCart(total);
+  }, [currentPage]);
 
   return (
     <>
@@ -115,7 +140,7 @@ function Home() {
             placeholder="Search"
             leftIcon={<SearchIcon size={200} />}
             size="lg"
-            onChange={(e) => setSearchWord(e.target.value)}
+            onChange={(e) => getDebouncing(e.target.value)}
           />
           <Box css={{ position: "relative" }}>
             <Link to="/Cart">
@@ -147,17 +172,26 @@ function Home() {
         </Flex>
       </Flex>
       {/* Shopping List */}
-      <UseLoader
-        products={products}
-        searchWord={searchWord}
-        selectedCategories={selectedCategories}
-        setProductsData={setProductsData}
-        setTotalCart={setTotalCart}
-        selectedRating={selectedRating}
-        loading={products.length <= 0}
-      />
+      <Flex css={{ paddingTop: 20 }} gap={10} flexDirection="column">
+        <Pagination
+          activePage={currentPage}
+          itemsPerPage={10}
+          total={100}
+          onChange={(event, page) => setCurrentPage(page)}
+        />
+        <UseLoader
+          products={products}
+          searchWord={searchWord}
+          selectedCategories={selectedCategories}
+          setProductsData={setProductsData}
+          setTotalCart={setTotalCart}
+          selectedRating={selectedRating}
+          currentPage={currentPage}
+          loading={products.length <= 0}
+        />
+      </Flex>
     </>
   );
 }
 
-export default Home
+export default Home;
