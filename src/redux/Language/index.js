@@ -19,4 +19,4 @@ const languageSlice = createSlice({
 
 export const { setLanguageData, clearLanguageData } = languageSlice.actions;
 
-export default languageSlice.reducer;
+export default languageSlice.reducer; 

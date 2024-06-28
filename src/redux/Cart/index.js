@@ -20,7 +20,7 @@ const cartSlice = createSlice({
       else{
         state.currentCart = [...state.currentCart,action.payload];
       }
-    },
+    }, 
     clearCartData: (state) => {
       state.currentCart = [];
     },

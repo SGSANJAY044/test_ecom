@@ -19,4 +19,4 @@ const productsSlice = createSlice({
 
 export const { setProductsData, clearProductsData } = productsSlice.actions;
 
-export default productsSlice.reducer;
+export default productsSlice.reducer; 

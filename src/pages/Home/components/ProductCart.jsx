@@ -19,7 +19,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     dispatch(
       setProducts(
         products.map((currentproduct) => {
-          if (currentproduct.id == product.id) {
+          if (currentproduct.id === product.id) {
             return {
               ...product,
               cartCount: currentproduct.cartCount + cartCount,
