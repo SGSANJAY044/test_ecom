@@ -36,6 +36,8 @@ import {
 import { setLanguageData } from "../../redux/Language";
 import { setThemeData } from "../../redux/Theme";
 
+import clear from "config/Twigs/clearClass";
+
 const UseLoader = Loader(HomeFeed);
 
 function Home() {
@@ -187,7 +189,10 @@ function Home() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem
-                onClick={(e) => dispatch(setThemeData("Sparrow"))}
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Sparrow"));
+                }}
               >
                 <Flex gap={"$5"} alignItems="center" justifyContent="center">
                   <Box
@@ -202,7 +207,10 @@ function Home() {
                 </Flex>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={(e) => dispatch(setThemeData("Edith"))}
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Edith"));
+                }}
               >
                 <Flex gap={"$5"} alignItems="center" justifyContent="center">
                   <Box
@@ -217,7 +225,10 @@ function Home() {
                 </Flex>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={(e) => dispatch(setThemeData("Jarvis"))}
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Jarvis"));
+                }}
               >
                 <Flex gap={"$5"} alignItems="center" justifyContent="center">
                   <Box
@@ -232,7 +243,10 @@ function Home() {
                 </Flex>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={(e) => dispatch(setThemeData("Friday"))}
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Friday"));
+                }}
               >
                 <Flex gap={"$5"} alignItems="center" justifyContent="center">
                   <Box

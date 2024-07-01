@@ -7,6 +7,7 @@ import theme from './config/Twigs/twigs.config'
 import { useSelector } from 'react-redux';
 function App() {
   const themeName = useSelector(state => state.theme.currentTheme)
+  console.log(theme[themeName]);
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme[themeName]}>
