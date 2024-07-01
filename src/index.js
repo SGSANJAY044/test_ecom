@@ -6,13 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Toastr } from "@sparrowengg/twigs-react";
 import { Provider } from 'react-redux'
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(  
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Toastr duration={10000} />
-    <App />
+      <App />
     </Provider>
   </React.StrictMode>
 );

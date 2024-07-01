@@ -8,7 +8,6 @@ import * as data from "./data.json";
 
 function I18n() {
   const language = useSelector((state) => state.language.currentLanguage);
-  console.log(language);
   i18n
     .use(LanguageDetector)
     .use(initReactI18next)
