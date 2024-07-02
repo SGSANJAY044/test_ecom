@@ -1,4 +1,4 @@
-import { Grid, toast } from "@sparrowengg/twigs-react";
+import { Box, Grid, toast } from "@sparrowengg/twigs-react";
 import React, { useEffect, useMemo, useState } from "react";
 import ProductCart from "./ProductCart";
 import API from "api";
@@ -66,7 +66,7 @@ function HomeFeed({
   }, [currentPage, selectedCategories, selectedRating]);
 
   return (
-    <>
+    <Box>
       <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
         {productData &&
           productData.map((product) => (
@@ -79,7 +79,7 @@ function HomeFeed({
             />
           ))}
       </Grid>
-    </>
+    </Box>
   );
 }
 

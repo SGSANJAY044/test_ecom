@@ -114,7 +114,7 @@ function Login() {
           <Button
             css={{ fontFamily: "sans-serif" }}
             size={"lg"}
-            onClick={login}
+            onClick={() => login()}
           >
             Login
           </Button>
