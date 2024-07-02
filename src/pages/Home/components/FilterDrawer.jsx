@@ -124,7 +124,7 @@ function FilterDrawer({
                 color: "$primary400",
               }}
             >
-              Price
+              Rating
             </Box>
             <Slider
               defaultValue={[5]}

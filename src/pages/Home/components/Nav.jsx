@@ -31,7 +31,7 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const signOut = () => {
-    localStorage.setItem("user", null);
+    sessionStorage.setItem("user", null);
     navigate("/");
   };
 
