@@ -6,7 +6,8 @@ import API from "api/index";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
 import { PiSignOutBold } from "react-icons/pi";
-
+import { MdLanguage } from "react-icons/md";
+import { IoIosColorPalette } from "react-icons/io";
 import { SearchIcon } from "@sparrowengg/twigs-react-icons";
 import {
   Box,
@@ -31,8 +32,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@sparrowengg/twigs-react";
-import { MdLanguage } from "react-icons/md";
+
 import { setLanguageData } from "../../redux/Language";
+import { setThemeData } from "../../redux/Theme";
+
+import clear from "utils/Twigs/clearClass";
 
 const UseLoader = Loader(HomeFeed);
 
@@ -166,6 +170,95 @@ function Home() {
                 onClick={(e) => dispatch(setLanguageData("tm"))}
               >
                 {t("Tamil")}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              css={{
+                cursor: "pointer",
+                color: "white",
+                background: "$primary300",
+                border: "none",
+                fontWeight: "bold",
+                borderRadius: "8px",
+                fontFamily: "sans-serif",
+              }}
+            >
+              <IoIosColorPalette className="lang-icon" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Sparrow"));
+                }}
+              >
+                <Flex gap={"$5"} alignItems="center" justifyContent="center">
+                  <Box
+                    css={{
+                      backgroundColor: "#56B0BB",
+                      width: "$7",
+                      height: "$5",
+                      borderRadius: "$sm",
+                    }}
+                  />
+                  <Box>{t("Sparrow")}</Box>
+                </Flex>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Edith"));
+                }}
+              >
+                <Flex gap={"$5"} alignItems="center" justifyContent="center">
+                  <Box
+                    css={{
+                      backgroundColor: "#c26ba9",
+                      width: "$7",
+                      height: "$5",
+                      borderRadius: "$sm",
+                    }}
+                  />
+                  <Box>{t("Edith")}</Box>
+                </Flex>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Jarvis"));
+                }}
+              >
+                <Flex gap={"$5"} alignItems="center" justifyContent="center">
+                  <Box
+                    css={{
+                      backgroundColor: "#72cf9b",
+                      width: "$7",
+                      height: "$5",
+                      borderRadius: "$sm",
+                    }}
+                  />
+                  <Box>{t("Jarvis")}</Box>
+                </Flex>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  clear();
+                  dispatch(setThemeData("Friday"));
+                }}
+              >
+                <Flex gap={"$5"} alignItems="center" justifyContent="center">
+                  <Box
+                    css={{
+                      backgroundColor: "#43c4e0",
+                      width: "$7",
+                      height: "$5",
+                      borderRadius: "$sm",
+                    }}
+                  />
+                  <Box>{t("Friday")}</Box>
+                </Flex>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
