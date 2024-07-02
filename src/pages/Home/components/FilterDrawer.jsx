@@ -37,7 +37,7 @@ function FilterDrawer({
     );
   };
   return (
-    <>
+    <Box>
       <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
         <DrawerHeader>
           <Flex css={{ width: 600 }} justifyContent="space-between">
@@ -79,7 +79,7 @@ function FilterDrawer({
               {categories.map((category, index) => (
                 <DropdownMenuItem
                   onClick={() => addFilter(category)}
-                  key={index}
+                  key={categories}
                 >
                   {category}
                 </DropdownMenuItem>
@@ -93,7 +93,7 @@ function FilterDrawer({
               gap: "$10",
             }}
           >
-            {selectedCategories.map((category) => (
+            {selectedCategories.map((category, index) => (
               <Chip
                 css={{
                   fontFamily: "sans-serif",
@@ -110,6 +110,7 @@ function FilterDrawer({
                   )
                 }
                 size="md"
+                key={category + index}
               >
                 {category}
               </Chip>
@@ -139,7 +140,7 @@ function FilterDrawer({
           </Flex>
         </DrawerBody>
       </Drawer>
-    </>
+    </Box>
   );
 }
 

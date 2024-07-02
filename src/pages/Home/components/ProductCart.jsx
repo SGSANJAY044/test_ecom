@@ -34,7 +34,6 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     setCurrentCartStatus(false);
     setCartCount(0);
   };
-  console.log(t("Solid Gold Petite Micropave"));
   return (
     <Flex
       css={{
