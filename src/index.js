@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Toastr } from "@sparrowengg/twigs-react";
 import { Provider } from 'react-redux'
-import './config/Notification'
+import './utils/Notification'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

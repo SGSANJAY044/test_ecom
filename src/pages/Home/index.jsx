@@ -36,7 +36,7 @@ import {
 import { setLanguageData } from "../../redux/Language";
 import { setThemeData } from "../../redux/Theme";
 
-import clear from "config/Twigs/clearClass";
+import clear from "utils/Twigs/clearClass";
 
 const UseLoader = Loader(HomeFeed);
 

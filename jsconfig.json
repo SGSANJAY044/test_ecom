@@ -2,5 +2,5 @@
     "compilerOptions": {
         "baseUrl": "./src"
     },
-    "include": ["./src", "src/config/Twigs/twigs.config.js", "public/serviceWorker.js"]
+    "include": ["./src", "src/utils/Twigs/twigs.config.js", "public/serviceWorker.js"]
 }
