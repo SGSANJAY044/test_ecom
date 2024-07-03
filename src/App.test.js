@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import Nav from './pages/Product/components/Nav';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+it('Product Nav Bar Check', () => {
+  render(<Nav />);
+  const document = screen.getByText('SPARROWMART')
+  expect(document).toBeInTheDocument();
+});
+
+it('Cart', () => {
+  render(<Nav />);
+  const document = screen.getByText('SPARROWMART')
+  expect(document).toBeInTheDocument();
 });
