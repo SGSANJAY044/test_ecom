@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const API = axios.create({ baseURL: 'http://localhost:1810' })
 const authInterceptor = (req) => {
-    const accessToken = JSON.parse(localStorage.getItem("user"))?.token;
+    const accessToken = JSON.parse(sessionStorage.getItem("user"))?.token;
     if (accessToken) {
         req.headers.Authorization = `Bearer ${accessToken}`;
     }

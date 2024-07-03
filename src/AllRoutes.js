@@ -3,7 +3,7 @@ import {Home, Cart, Login, Signup} from 'pages'
 import { Route, Routes } from 'react-router-dom'
 import Product from 'pages/Product'
 function AllRoutes() {
-  const currentUser = JSON.parse(localStorage.getItem("user"))?.token
+  const currentUser = sessionStorage.getItem("user")
   console.log(currentUser);
   return (
     <Routes>

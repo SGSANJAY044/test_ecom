@@ -15,7 +15,7 @@ function Login() {
     try {
       const res = await API.put("/login", { ...user, valid });
       if (res.data?.token) {
-        localStorage.setItem(
+        sessionStorage.setItem(
           "user",
           JSON.stringify({ email: user.email, token: res.data.token })
         );

@@ -11,7 +11,7 @@ const registerSW = () => {
     navigator.serviceWorker.register('/serviceWorker.js').then(() => {
         return navigator.serviceWorker.ready;
     }).then(registration => {
-        registration.active.postMessage(localStorage.getItem("user"));
+        registration.active.postMessage(sessionStorage.getItem("user"));
         console.log(registration);
     })
     // return registration
