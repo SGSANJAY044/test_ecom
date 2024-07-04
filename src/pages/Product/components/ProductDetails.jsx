@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from 'react'
 import { Box, Button, Flex } from '@sparrowengg/twigs-react';
 import { FaBagShopping, FaStar } from 'react-icons/fa6';
@@ -59,6 +60,15 @@ function ProductDetails({ productData }) {
       </Flex>
     </Flex>
   );
+}
+
+ProductDetails.propTypes = {
+  productData: PropTypes.shape({
+    description: PropTypes.any,
+    price: PropTypes.any,
+    rating: PropTypes.any,
+    title: PropTypes.any
+  })
 }
 
 export default ProductDetails; 

@@ -1,69 +1,13 @@
-import { Box, Grid, toast } from "@sparrowengg/twigs-react";
-import React, { useEffect, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import { Box, Grid } from "@sparrowengg/twigs-react";
+import React from "react";
 import ProductCart from "./ProductCart";
-import API from "api";
+import { useSelector } from "react-redux";
 
-function HomeFeed({
-  products,
-  setTotalCart,
-  setProductsData,
-  searchWord,
-  selectedCategories,
-  selectedRating,
-  currentPage,
-}) {
-  const [productData, setProductData] = useState(products);
-  const getFilterData = useMemo(
-    () => async () => {
-      try {
-        let query = "";
-        if (selectedCategories.length > 0)
-          query += "categories=" + selectedCategories.join("/");
-        if (selectedRating !== 0) {
-          if (selectedCategories.length > 0) query += "&";
-          query += "rating=" + selectedRating;
-        }
-        const data = await API.get(
-          `/products/filter?${query}&pageno=${currentPage}`
-        );
-        setProductData(data.data.data);
-      } catch (err) {
-        console.log(err);
-        toast({
-          variant: "error",
-          title: "Error in fetch Data",
-          description: err.message,
-        });
-      }
-    },
-    [selectedCategories, selectedRating, currentPage]
+function HomeFeed({ setTotalCart, setProductsData }) {
+  const productData = useSelector(
+    (state) => state.products.currentProducts.data
   );
-
-  const getSearchData = useMemo(
-    () => async () => {
-      try {
-        const data = await API.get(
-          `/products/search?searchWord=${searchWord}&pageno=${currentPage}`
-        );
-        console.log(data.data);
-        setProductData(data.data.data);
-      } catch (err) {
-        toast({
-          variant: "error",
-          title: "Error in fetch Data",
-          description: err.message,
-        });
-      }
-    },
-    [currentPage, searchWord]
-  );
-
-  useEffect(() => {
-    getSearchData();
-  }, [currentPage, searchWord]);
-  useEffect(() => {
-    getFilterData();
-  }, [currentPage, selectedCategories, selectedRating]);
 
   return (
     <Box>
@@ -82,5 +26,10 @@ function HomeFeed({
     </Box>
   );
 }
+
+HomeFeed.propTypes = {
+  setProductsData: PropTypes.any,
+  setTotalCart: PropTypes.any,
+};
 
 export default HomeFeed;

@@ -6,7 +6,7 @@ import { Flex, toast, Pagination } from "@sparrowengg/twigs-react";
 
 import { useSelector, useDispatch } from "react-redux";
 import FilterDrawer from "pages/Home/components/FilterDrawer";
-import { setProductsData } from "../../redux/Products";
+import { setProductsData, setTotalCount } from "../../redux/Products";
 
 import Loader from "../../components/Loader";
 import HomeFeed from "./components/HomeFeed";
@@ -18,8 +18,10 @@ function Home() {
   const dispatch = useDispatch();
 
   const currentCart = useSelector((state) => state.cart.currentCart);
-  const products = useSelector((state) => state.products.currentProducts);
-
+  const products = useSelector((state) => state.products.currentProducts.data);
+  const totalCount = useSelector(
+    (state) => state.products.currentProducts.totalcount
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCart, setTotalCart] = useState(0);
   const [searchWord, setSearchWord] = useState("");
@@ -30,8 +32,20 @@ function Home() {
   const getData = useMemo(
     () => async () => {
       try {
-        const data = await API.get(`/products?pageno=${currentPage}`);
+        let query = "";
+        if (selectedCategories.length > 0)
+          query += "categories=" + selectedCategories.join("/");
+        if (selectedRating !== 0) {
+          if (selectedCategories.length > 0) query += "&";
+          query += "rating=" + selectedRating;
+        }
+        if (searchWord !== "") {
+          if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
+          query += "searchWord=" + searchWord;
+        }
+        const data = await API.get(`/products?${query}&pageno=${currentPage}`);
         console.log(data);
+        dispatch(setTotalCount(data.data.totalcount));
         dispatch(
           setProductsData(
             data.data.data.map((item) => ({ ...item, cartCount: 0 }))
@@ -46,7 +60,7 @@ function Home() {
         });
       }
     },
-    [currentPage]
+    [currentPage, searchWord, selectedCategories, selectedRating]
   );
 
   useEffect(() => {
@@ -57,7 +71,7 @@ function Home() {
       return product;
     });
     setTotalCart(total);
-  }, [currentPage]);
+  }, [currentPage, searchWord, selectedCategories, selectedRating]);
 
   return (
     <>
@@ -80,17 +94,12 @@ function Home() {
         <Pagination
           activePage={currentPage}
           itemsPerPage={10}
-          total={100}
+          total={totalCount}
           onChange={(event, page) => setCurrentPage(page)}
         />
         <UseLoader
-          products={products}
-          searchWord={searchWord}
-          selectedCategories={selectedCategories}
           setProductsData={setProductsData}
           setTotalCart={setTotalCart}
-          selectedRating={selectedRating}
-          currentPage={currentPage}
           loading={products.length <= 0}
         />
       </Flex>

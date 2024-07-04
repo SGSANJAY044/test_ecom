@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from 'react'
 import { Tabs, TabsList, TabsTrigger, TabsContent, Flex } from "@sparrowengg/twigs-react";
 import ProductDetails from './ProductDetails';
@@ -48,6 +49,13 @@ function ProductCard({ productData, productReviews }) {
         </Flex>
       </Flex>
     );
+}
+
+ProductCard.propTypes = {
+  productData: PropTypes.shape({
+    image: PropTypes.any
+  }),
+  productReviews: PropTypes.any
 }
 
 export default ProductCard

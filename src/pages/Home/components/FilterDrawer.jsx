@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -22,11 +23,10 @@ function FilterDrawer({
   setSelectedCategories,
   setSelectedRating,
 }) {
-  const products = useSelector((state) => state.products.currentProducts);
+  const products = useSelector((state) => state.products.currentProducts.data);
   const [categories, setCategories] = useState([
     ...new Set(products.map((product) => product.category)),
   ]);
-  console.log(categories);
 
   useEffect(() => {
     setCategories([...new Set(products.map((product) => product.category))]);
@@ -143,5 +143,15 @@ function FilterDrawer({
     </Box>
   );
 }
+
+FilterDrawer.propTypes = {
+  isDrawerOpen: PropTypes.any,
+  selectedCategories: PropTypes.shape({
+    map: PropTypes.func,
+  }),
+  setIsDrawerOpen: PropTypes.func,
+  setSelectedCategories: PropTypes.func,
+  setSelectedRating: PropTypes.func,
+};
 
 export default FilterDrawer;

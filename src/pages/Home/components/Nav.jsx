@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -233,5 +234,11 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
     </Flex>
   );
 }
+
+Nav.propTypes = {
+  setIsDrawerOpen: PropTypes.func,
+  setSearchWord: PropTypes.any,
+  totalCart: PropTypes.any,
+};
 
 export default Nav;
