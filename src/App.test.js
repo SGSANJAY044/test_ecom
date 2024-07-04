@@ -8,8 +8,3 @@ it('Product Nav Bar Check', () => {
   expect(document).toBeInTheDocument();
 });
 
-it('Cart', () => {
-  render(<Nav />);
-  const document = screen.getByText('SPARROWMART')
-  expect(document).toBeInTheDocument();
-});

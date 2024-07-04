@@ -12,7 +12,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const products = useSelector((state) => state.products.currentProducts);
+  const products = useSelector((state) => state.products.currentProducts.data);
   const [cartCount, setCartCount] = useState(1);
   const [currentCartStatus, setCurrentCartStatus] = useState(cartStatus);
   const addCart = (product) => {

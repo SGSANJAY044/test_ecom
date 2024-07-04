@@ -22,7 +22,7 @@ function FilterDrawer({
   setSelectedCategories,
   setSelectedRating,
 }) {
-  const products = useSelector((state) => state.products.currentProducts);
+  const products = useSelector((state) => state.products.currentProducts.data);
   const [categories, setCategories] = useState([
     ...new Set(products.map((product) => product.category)),
   ]);
