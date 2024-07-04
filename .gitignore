@@ -27,3 +27,4 @@ yarn-error.log*
 sonarqube/extensions
 sonarqube/data
 sonarqube/logs
+*storybook.log

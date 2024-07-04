@@ -26,7 +26,6 @@ function FilterDrawer({
   const [categories, setCategories] = useState([
     ...new Set(products.map((product) => product.category)),
   ]);
-  console.log(categories);
 
   useEffect(() => {
     setCategories([...new Set(products.map((product) => product.category))]);
