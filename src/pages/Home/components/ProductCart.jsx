@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Flex, Button, Text } from "@sparrowengg/twigs-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -167,5 +168,17 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     </Flex>
   );
 }
+
+ProductCart.propTypes = {
+  cartStatus: PropTypes.any,
+  product: PropTypes.shape({
+    id: PropTypes.any,
+    image: PropTypes.any,
+    rating: PropTypes.any,
+    title: PropTypes.any,
+  }),
+  setProducts: PropTypes.func,
+  setTotalCart: PropTypes.func,
+};
 
 export default ProductCart;

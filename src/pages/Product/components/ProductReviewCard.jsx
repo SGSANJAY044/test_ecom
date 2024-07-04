@@ -1,5 +1,6 @@
 // implementing Component Pattern 
 
+import PropTypes from "prop-types";
 import { Box, Flex } from '@sparrowengg/twigs-react'
 import React, { createContext, useContext } from 'react'
 import { FaStar } from 'react-icons/fa';
@@ -32,6 +33,13 @@ function ProductReviewCard({ children, review }) {
     </ProductReviewContext.Provider>
   );
 } 
+
+ProductReviewCard.propTypes = {
+  children: PropTypes.any,
+  review: PropTypes.shape({
+    id: PropTypes.any,
+  }),
+};
 
 ProductReviewCard.Customer = function Customer() {
     const review = useProductReviewContext()

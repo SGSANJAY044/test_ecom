@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -142,5 +143,15 @@ function FilterDrawer({
     </Box>
   );
 }
+
+FilterDrawer.propTypes = {
+  isDrawerOpen: PropTypes.any,
+  selectedCategories: PropTypes.shape({
+    map: PropTypes.func,
+  }),
+  setIsDrawerOpen: PropTypes.func,
+  setSelectedCategories: PropTypes.func,
+  setSelectedRating: PropTypes.func,
+};
 
 export default FilterDrawer;

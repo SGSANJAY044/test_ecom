@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Box, Grid } from "@sparrowengg/twigs-react";
 import React from "react";
 import ProductCart from "./ProductCart";
@@ -25,5 +26,10 @@ function HomeFeed({ setTotalCart, setProductsData }) {
     </Box>
   );
 }
+
+HomeFeed.propTypes = {
+  setProductsData: PropTypes.any,
+  setTotalCart: PropTypes.any,
+};
 
 export default HomeFeed;
