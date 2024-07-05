@@ -4,7 +4,7 @@ import React from "react";
 import ProductCart from "./ProductCart";
 import { useSelector } from "react-redux";
 
-function HomeFeed({ setTotalCart, setProductsData }) {
+function HomeFeed({ setTotalCart, setProductsData, setLastElement }) {
   const productData = useSelector(
     (state) => state.products.currentProducts.data
   );
@@ -12,22 +12,27 @@ function HomeFeed({ setTotalCart, setProductsData }) {
   return (
     <Box>
       <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
-        {productData &&
-          productData.map((product) => (
-            <ProductCart
-              product={product}
-              cartStatus={false}
-              setTotalCart={setTotalCart}
-              setProducts={setProductsData}
-              key={product.id}
-            />
-          ))}
+        {productData && (
+          <>
+            {productData.map((product, index) => (
+              <ProductCart
+                product={product}
+                cartStatus={false}
+                setTotalCart={setTotalCart}
+                setProducts={setProductsData}
+                key={product.id}
+              />
+            ))}
+            <Box ref={setLastElement} />
+          </>
+        )}
       </Grid>
     </Box>
   );
 }
 
 HomeFeed.propTypes = {
+  setLastElement: PropTypes.any,
   setProductsData: PropTypes.any,
   setTotalCart: PropTypes.any,
 };

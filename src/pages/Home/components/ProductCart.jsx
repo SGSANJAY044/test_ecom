@@ -33,7 +33,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
     dispatch(setCartData({ ...product, cartCount: cartCount }));
     setTotalCart((prev) => prev + cartCount);
     setCurrentCartStatus(false);
-    setCartCount(0);
+    setCartCount(1);
   };
   return (
     <Flex

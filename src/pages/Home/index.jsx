@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import "./index.scss";
 
 import API from "api/index";
@@ -6,13 +12,17 @@ import { Flex, toast, Pagination } from "@sparrowengg/twigs-react";
 
 import { useSelector, useDispatch } from "react-redux";
 import FilterDrawer from "pages/Home/components/FilterDrawer";
-import { setProductsData, setTotalCount } from "../../redux/Products";
+import {
+  addProductsData,
+  setProductsData,
+  setTotalCount,
+} from "../../redux/Products";
 
 import Loader from "../../components/Loader";
 import HomeFeed from "./components/HomeFeed";
 import Nav from "./components/Nav";
 
-const UseLoader = Loader(HomeFeed);
+const UseLoader = Loader(<></>);
 
 function Home() {
   const dispatch = useDispatch();
@@ -28,7 +38,57 @@ function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
+  const [lastElement, setLastElement] = useState(null);
 
+  const observer = useRef(
+    new IntersectionObserver((entries) => {
+      const first = entries[0];
+      if (first.isIntersecting) {
+        setCurrentPage((no) => no + 1);
+      }
+    })
+  );
+
+  useEffect(() => {
+    const callUser = async () => {
+      let query = "";
+      if (selectedCategories.length > 0)
+        query += "categories=" + selectedCategories.join("/");
+      if (selectedRating !== 0) {
+        if (selectedCategories.length > 0) query += "&";
+        query += "rating=" + selectedRating;
+      }
+      if (searchWord !== "") {
+        if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
+        query += "searchWord=" + searchWord;
+      }
+      const data = await API.get(`/products?${query}&pageno=${currentPage}`);
+      console.log(data);
+      dispatch(
+        addProductsData(
+          data.data.data.map((item) => ({ ...item, cartCount: 0 }))
+        )
+      );
+    };
+    if (currentPage <= totalCount / 9) {
+      callUser();
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    const currentElement = lastElement;
+    const currentObserver = observer.current;
+
+    if (currentElement) {
+      currentObserver.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [lastElement]);
   const getData = useMemo(
     () => async () => {
       try {
@@ -43,7 +103,7 @@ function Home() {
           if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
           query += "searchWord=" + searchWord;
         }
-        const data = await API.get(`/products?${query}&pageno=${currentPage}`);
+        const data = await API.get(`/products?${query}&pageno=1`);
         console.log(data);
         dispatch(setTotalCount(data.data.totalcount));
         dispatch(
@@ -71,38 +131,39 @@ function Home() {
       return product;
     });
     setTotalCart(total);
-  }, [currentPage, searchWord, selectedCategories, selectedRating]);
+  }, [searchWord, selectedCategories, selectedRating]);
 
   return (
     <>
-      {/* Drawer */}
-      <FilterDrawer
-        isDrawerOpen={isDrawerOpen}
-        setIsDrawerOpen={setIsDrawerOpen}
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
-        setSelectedRating={setSelectedRating}
-      />
-      {/* Nav */}
-      <Nav
-        setIsDrawerOpen={setIsDrawerOpen}
-        totalCart={totalCart}
-        setSearchWord={setSearchWord}
-      />
-      {/* Shopping List */}
-      <Flex css={{ paddingTop: 20 }} gap={10} flexDirection="column">
-        <Pagination
-          activePage={currentPage}
-          itemsPerPage={10}
-          total={totalCount}
-          onChange={(event, page) => setCurrentPage(page)}
-        />
-        <UseLoader
-          setProductsData={setProductsData}
-          setTotalCart={setTotalCart}
-          loading={products.length <= 0}
-        />
-      </Flex>
+      {products ? (
+        <>
+          {/* Drawer */}
+          <FilterDrawer
+            isDrawerOpen={isDrawerOpen}
+            setIsDrawerOpen={setIsDrawerOpen}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            setSelectedRating={setSelectedRating}
+          />
+          {/* Nav */}
+          <Nav
+            setIsDrawerOpen={setIsDrawerOpen}
+            totalCart={totalCart}
+            setSearchWord={setSearchWord}
+            getData={getData}
+          />
+          {/* Shopping List */}
+          <Flex css={{ paddingTop: 20 }} gap={10} flexDirection="column">
+            <HomeFeed
+              setProductsData={setProductsData}
+              setTotalCart={setTotalCart}
+              setLastElement={setLastElement}
+            />
+          </Flex>
+        </>
+      ) : (
+        <UseLoader loading={products ? products.length <= 0 : true} />
+      )}
     </>
   );
 }
