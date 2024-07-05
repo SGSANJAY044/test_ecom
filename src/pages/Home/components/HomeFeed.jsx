@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Box, Flex, Grid, Text } from "@sparrowengg/twigs-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductTable from "./ProductTable";
 import ProductCart from "./ProductCart";
 import { useSelector } from "react-redux";
@@ -9,7 +9,36 @@ import {
   UnorderedListIcon,
 } from "@sparrowengg/twigs-react-icons";
 
-function HomeFeed({ setTotalCart, setProductsData, setLastElement }) {
+function MyObserver({
+  searchWord,
+  selectedCategories,
+  selectedRating,
+  selector,
+  callback,
+}) {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => callback(entries));
+
+    const element = document.querySelector(selector);
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return <>{searchWord && selectedCategories && selectedRating && <></>}</>;
+}
+
+function HomeFeed({
+  searchWord,
+  selectedCategories,
+  selectedRating,
+  setTotalCart,
+  setProductsData,
+  setCurrentPage,
+}) {
   const productData = useSelector(
     (state) => state.products.currentProducts.data
   );
@@ -54,7 +83,17 @@ function HomeFeed({ setTotalCart, setProductsData, setLastElement }) {
                   key={product.id}
                 />
               ))}
-              <Box ref={setLastElement} />
+              <Box className="grid-observer" />
+              <MyObserver
+                searchWord={searchWord}
+                selectedCategories={selectedCategories}
+                selectedRating={selectedRating}
+                selector={".grid-observer"}
+                callback={(e) => {
+                  if (e[0].isIntersecting) setCurrentPage((no) => no + 1);
+                  return;
+                }}
+              />
             </>
           )}
         </Grid>
@@ -127,7 +166,6 @@ function HomeFeed({ setTotalCart, setProductsData, setLastElement }) {
                   key={product.id}
                 />
               ))}
-              <Box ref={setLastElement} />
             </>
           )}
         </Flex>
@@ -137,7 +175,7 @@ function HomeFeed({ setTotalCart, setProductsData, setLastElement }) {
 }
 
 HomeFeed.propTypes = {
-  setLastElement: PropTypes.any,
+  setCurrentPage: PropTypes.func,
   setProductsData: PropTypes.any,
   setTotalCart: PropTypes.any,
 };

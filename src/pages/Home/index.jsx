@@ -38,17 +38,6 @@ function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
-  const [lastElement, setLastElement] = useState(null);
-
-  const observer = useRef(
-    new IntersectionObserver((entries) => {
-      const first = entries[0];
-      if (first.isIntersecting) {
-        setCurrentPage((no) => no + 1);
-      }
-    })
-  );
-
   useEffect(() => {
     const callUser = async () => {
       let query = "";
@@ -75,20 +64,6 @@ function Home() {
     }
   }, [currentPage]);
 
-  useEffect(() => {
-    const currentElement = lastElement;
-    const currentObserver = observer.current;
-
-    if (currentElement) {
-      currentObserver.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
-    };
-  }, [lastElement]);
   const getData = useMemo(
     () => async () => {
       try {
@@ -155,9 +130,12 @@ function Home() {
           {/* Shopping List */}
           <Flex css={{ paddingTop: 20 }} gap={10} flexDirection="column">
             <HomeFeed
+              searchWord={searchWord}
+              selectedCategories={selectedCategories}
+              selectedRating={selectedRating}
               setProductsData={setProductsData}
               setTotalCart={setTotalCart}
-              setLastElement={setLastElement}
+              setCurrentPage={setCurrentPage}
             />
           </Flex>
         </>

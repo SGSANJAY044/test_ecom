@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { Flex, Button, Text, Box } from "@sparrowengg/twigs-react";
+import { Flex, Button, Text } from "@sparrowengg/twigs-react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartData } from "../../../redux/Cart";
 
@@ -16,6 +16,7 @@ function ProductTable({ product, setTotalCart, cartStatus, setProducts }) {
   const products = useSelector((state) => state.products.currentProducts.data);
   const [cartCount, setCartCount] = useState(1);
   const [currentCartStatus, setCurrentCartStatus] = useState(cartStatus);
+
   const addCart = (product) => {
     dispatch(
       setProducts(
