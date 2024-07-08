@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { lazy, useEffect, useMemo, useState } from "react";
 import "./index.scss";
 
 import API from "api/index";
@@ -19,8 +13,9 @@ import {
 } from "../../redux/Products";
 
 import Loader from "../../components/Loader";
-import HomeFeed from "./components/HomeFeed";
-import Nav from "./components/Nav";
+
+const Nav = lazy(() => import("./components/Nav"));
+const HomeFeed = lazy(() => import("./components/HomeFeed"));
 
 const UseLoader = Loader(<></>);
 

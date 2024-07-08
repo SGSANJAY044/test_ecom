@@ -14,7 +14,6 @@ function ProductTable({ productData, setTotalCart, setProductsData }) {
       const rowContainer =
         scrollContainer.current.querySelector(".row-container");
       const rowHeight = rowContainer ? rowContainer.clientHeight : 0;
-      const totalItems = 100;
       const visibleItems = Math.ceil(containerHeight / rowHeight);
       const scrollOffset = Math.ceil(scrollContainer.current.scrollTop);
       console.log(scrollOffset);

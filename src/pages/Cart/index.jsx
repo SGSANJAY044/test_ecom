@@ -1,13 +1,13 @@
-import React from 'react'
-import './index.scss'
-import { Grid } from '@sparrowengg/twigs-react';
-import CartCard from './components/CartCard';
-import Nav from './components/Nav'
-import { useSelector } from 'react-redux';
+import React, { lazy } from "react";
+import "./index.scss";
+import { Grid } from "@sparrowengg/twigs-react";
+import { useSelector } from "react-redux";
+
+const Nav = lazy(() => import("./components/Nav"));
+const CartCard = lazy(() => import("./components/CartCard"));
 
 function Cart() {
-  const currentCart = useSelector((state) => state.cart.currentCart)
-  console.log(currentCart);
+  const currentCart = useSelector((state) => state.cart.currentCart);
   return (
     <>
       <Nav />
@@ -20,4 +20,4 @@ function Cart() {
   );
 }
 
-export default Cart
+export default Cart;

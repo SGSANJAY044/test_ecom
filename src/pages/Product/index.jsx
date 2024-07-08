@@ -1,9 +1,10 @@
 import API from 'api';
-import Loader from 'components/Loader';
-import Nav from 'pages/Product/components/Nav';
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import ProductCard from './components/ProductCard';
+import Loader from "components/Loader";
+import React, { lazy, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
+const Nav = lazy(() => import("./components/Nav"));
+const ProductCard = lazy(() => import("./components/ProductCard"));
 
 
 const UseLoader = Loader(ProductCard)
