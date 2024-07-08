@@ -1,170 +1,125 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import { Flex, Button, Text } from "@sparrowengg/twigs-react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCartData } from "../../../redux/Cart";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Flex, Text, toast } from "@sparrowengg/twigs-react";
+import ProductRow from "./ProductRow";
+import API from "api";
+import { useDispatch } from "react-redux";
+import { setTotalCount } from "../../../redux/Products";
+function ProductTable({ productData, setTotalCart, setProductsData }) {
+  const scrollContainer = useRef();
 
-import { FaShoppingCart } from "react-icons/fa";
-import { FaBagShopping } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-
-function ProductTable({ product, setTotalCart, cartStatus, setProducts }) {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const products = useSelector((state) => state.products.currentProducts.data);
-  const [cartCount, setCartCount] = useState(1);
-  const [currentCartStatus, setCurrentCartStatus] = useState(cartStatus);
-
-  const addCart = (product) => {
-    dispatch(
-      setProducts(
-        products.map((currentproduct) => {
-          if (currentproduct.id === product.id) {
-            return {
-              ...product,
-              cartCount: currentproduct.cartCount + cartCount,
-            };
-          }
-          return currentproduct;
-        })
-      )
-    );
-    dispatch(setCartData({ ...product, cartCount: cartCount }));
-    setTotalCart((prev) => prev + cartCount);
-    setCurrentCartStatus(false);
-    setCartCount(1);
+  const updateVisibleItems = async () => {
+    try {
+      const containerHeight = scrollContainer.current.clientHeight;
+      const rowContainer =
+        scrollContainer.current.querySelector(".row-container");
+      const rowHeight = rowContainer ? rowContainer.clientHeight : 0;
+      const totalItems = 100;
+      const visibleItems = Math.ceil(containerHeight / rowHeight);
+      const scrollOffset = Math.ceil(scrollContainer.current.scrollTop);
+      console.log(scrollOffset);
+      const start = Math.ceil(scrollOffset / visibleItems);
+      if (start >= 0 && start <= 94) {
+        const data = await API.get(`/products?offset=${start}&limit=7`);
+        dispatch(
+          setProductsData(
+            data.data.data.map((item) => ({ ...item, cartCount: 0 }))
+          )
+        );
+      }
+    } catch (e) {
+      toast({
+        variant: "error",
+        title: "Error in Fetch Data",
+        description: e.message,
+      });
+    }
   };
+  useEffect(() => {}, []);
   return (
-    <>
-      <Flex
-        key={product.id}
-        css={{
-          padding: 15,
-        }}
-        alignItems="center"
-        gap={50}
-      >
-        <Text css={{ fontFamily: "sans-serif", width: "1%", fontSize: "$md" }}>
-          {product.id}
-        </Text>
-        <Text
-          truncate
-          css={{ fontFamily: "sans-serif", width: "20%", fontSize: "$md" }}
-        >
-          {t(product.title)}
-        </Text>
-        <Text
-          css={{ fontFamily: "sans-serif", width: "50%", fontSize: "$md" }}
-          truncate
-        >
-          {t(product.description)}
-        </Text>
-        <Flex
-          css={{
-            gap: 10,
-            width: "30%",
-          }}
-          justifyContent="center"
-        >
-          {currentCartStatus ? (
-            <>
-              <Button
-                css={{
-                  padding: 10,
-                  fontFamily: "sans-serif",
-                  fontSize: "$md",
-                  width: 120,
-                  textAlign: "center",
-                }}
-                onClick={() => addCart(product)}
-                key={"OK Button"}
-              >
-                OK
-              </Button>
-              <Flex gap={10}>
-                <Button
-                  key={"plus"}
-                  css={{
-                    padding: 10,
-                    fontFamily: "monospace",
-                    fontSize: "$md",
-                    width: 35,
-                    textAlign: "center",
-                  }}
-                  onClick={() => setCartCount((prev) => prev + 1)}
-                >
-                  +
-                </Button>
-                <Flex
-                  css={{
-                    fontSize: "$md",
-                    fontFamily: "sans-serif",
-                    textAlign: "center",
-                    marginRight: 5,
-                    paddingLeft: 5,
-                  }}
-                  alignItems="center"
-                >
-                  {cartCount}
-                </Flex>
-                <Button
-                  css={{
-                    padding: 10,
-                    fontFamily: "monospace",
-                    fontSize: "$md",
-                    width: 35,
-                    textAlign: "center",
-                  }}
-                  disabled={cartCount < 1}
-                  onClick={() => setCartCount((prev) => prev - 1)}
-                >
-                  -
-                </Button>
-              </Flex>
-            </>
-          ) : (
-            <>
-              <Button
-                css={{
-                  padding: 10,
-                  fontFamily: "monospace",
-                  fontSize: "$md",
-                  color: "$primary400",
-                }}
-                color={"light"}
-                leftIcon={<FaShoppingCart />}
-                onClick={() => setCurrentCartStatus(true)}
-              >
-                {t("Add to Cart")}
-              </Button>
-              <Button
-                css={{
-                  padding: 10,
-                  fontFamily: "monospace",
-                  fontSize: "$md",
-                  cursor: "pointer",
-                }}
-                leftIcon={<FaBagShopping />}
-                onClick={() => navigate(`/product/${product.id}`)}
-              >
-                {t("Buy Now")}
-              </Button>
-            </>
-          )}
-        </Flex>
-      </Flex>
-      <hr />
-    </>
+    <Flex
+      flexDirection="column"
+      css={{
+        borderRadius: "$2xl",
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+        margin: 10,
+        padding: "$10",
+      }}
+    >
+      {productData && (
+        <>
+          <Flex
+            css={{
+              padding: 10,
+            }}
+            alignItems="center"
+            gap={50}
+          >
+            <Text
+              css={{
+                fontFamily: "sans-serif",
+                width: "1%",
+                fontSize: "$md",
+              }}
+            >
+              S.No
+            </Text>
+            <Text
+              truncate
+              css={{
+                fontFamily: "sans-serif",
+                width: "20%",
+                fontSize: "$md",
+              }}
+            >
+              Product Name
+            </Text>
+            <Text
+              css={{
+                fontFamily: "sans-serif",
+                width: "50%",
+                fontSize: "$md",
+              }}
+              truncate
+            >
+              Description
+            </Text>
+            <Text
+              css={{
+                fontFamily: "sans-serif",
+                width: "30%",
+                fontSize: "$md",
+                textAlign: "center",
+              }}
+              truncate
+            >
+              Actions
+            </Text>
+          </Flex>
+          <Box
+            css={{ height: "40vh", overflow: "scroll" }}
+            ref={scrollContainer}
+            onScroll={updateVisibleItems}
+          >
+            <Box
+              css={{
+                height: `${Math.ceil(scrollContainer?.current?.scrollTop) + 54}px`,
+              }}
+            />
+            {productData.map((product) => (
+              <ProductRow
+                product={product}
+                cartStatus={false}
+                setTotalCart={setTotalCart}
+                setProducts={setProductsData}
+                key={product.id}
+              />
+            ))}
+          </Box>
+        </>
+      )}
+    </Flex>
   );
 }
-
-ProductTable.propTypes = {
-  cartStatus: PropTypes.any,
-  product: PropTypes.any,
-  setProducts: PropTypes.any,
-  setTotalCart: PropTypes.any,
-};
 
 export default ProductTable;
