@@ -33,6 +33,8 @@ function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
+
+  console.log(currentPage);
   useEffect(() => {
     const callUser = async () => {
       let query = "";
@@ -130,6 +132,7 @@ function Home() {
               selectedRating={selectedRating}
               setProductsData={setProductsData}
               setTotalCart={setTotalCart}
+              getData={getData}
               setCurrentPage={setCurrentPage}
             />
           </Flex>

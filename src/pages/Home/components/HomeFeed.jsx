@@ -38,6 +38,7 @@ function HomeFeed({
   setTotalCart,
   setProductsData,
   setCurrentPage,
+  getData,
 }) {
   const productData = useSelector(
     (state) => state.products.currentProducts.data
@@ -54,7 +55,10 @@ function HomeFeed({
                 ? { color: "$primary400" }
                 : { cursor: "pointer", ":hover": { color: "$primary400" } }
             }
-            onClick={() => setView("Grid")}
+            onClick={() => {
+              getData();
+              setView("Grid");
+            }}
           >
             <GripDotsVerticalIcon />
           </Box>
@@ -64,7 +68,10 @@ function HomeFeed({
                 ? { color: "$primary400" }
                 : { cursor: "pointer", ":hover": { color: "$primary400" } }
             }
-            onClick={() => setView("List")}
+            onClick={() => {
+              getData();
+              setView("List");
+            }}
           >
             <UnorderedListIcon />
           </Box>
@@ -109,6 +116,10 @@ function HomeFeed({
 }
 
 HomeFeed.propTypes = {
+  getData: PropTypes.any,
+  searchWord: PropTypes.any,
+  selectedCategories: PropTypes.any,
+  selectedRating: PropTypes.any,
   setCurrentPage: PropTypes.func,
   setProductsData: PropTypes.any,
   setTotalCart: PropTypes.any,
