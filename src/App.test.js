@@ -21,7 +21,7 @@ const productReviews = [
     rating: '2.0',
     customer: 'Eve Franklin'
   }
-]
+] 
 
 it('Product Nav Bar Check', () => {
   render(<Nav />);
