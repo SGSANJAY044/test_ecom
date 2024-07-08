@@ -13,6 +13,7 @@ import {
 } from "../../redux/Products";
 
 import Loader from "../../components/Loader";
+import HomeFeedSkeleton from "./components/HomeFeedSkeleton";
 
 const Nav = lazy(() => import("./components/Nav"));
 const HomeFeed = lazy(() => import("./components/HomeFeed"));
@@ -138,7 +139,7 @@ function Home() {
           </Flex>
         </>
       ) : (
-        <UseLoader loading={products ? products.length <= 0 : true} />
+        <HomeFeedSkeleton />
       )}
     </>
   );

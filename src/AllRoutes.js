@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import Product from 'pages/Product'
 function AllRoutes() {
   const currentUser = sessionStorage.getItem("user")
-  console.log(currentUser);
   return (
     <Routes>
       <Route path="/" element={<Signup />} />
