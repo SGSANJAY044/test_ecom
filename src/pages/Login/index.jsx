@@ -23,11 +23,11 @@ function Login() {
         navigate("/home");
       }
     } catch (err) {
-      console.log("Error in login", err.response.data.message);
+      console.log("Error in login", err);
       toast({
         variant: "error",
         title: "Error in login",
-        description: err.response.data.message,
+        description: err,
       });
     }
   };
@@ -80,6 +80,7 @@ function Login() {
               size={"lg"}
               label="Email Address"
               type="email"
+              id="email"
               onChange={(e) =>
                 setUser((prev) => ({ ...prev, email: e.target.value }))
               }
@@ -90,6 +91,7 @@ function Login() {
               value={user.password}
               maxLength={16}
               showCount
+              id="password"
               type="password"
               onChange={(e) =>
                 setUser((prev) => ({ ...prev, password: e.target.value }))
@@ -132,7 +134,9 @@ function Login() {
               onClick={Loginwithgoogle}
             >
               <img src={google} alt="Gooogle" />
-              <Flex alignItems="center">Login with Google</Flex>
+              <Flex alignItems="center" id="google-login">
+                Login with Google
+              </Flex>
             </Flex>
           </Flex>
         </Flex>
