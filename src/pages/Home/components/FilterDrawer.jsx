@@ -146,9 +146,7 @@ function FilterDrawer({
 
 FilterDrawer.propTypes = {
   isDrawerOpen: PropTypes.any,
-  selectedCategories: PropTypes.shape({
-    map: PropTypes.func,
-  }),
+  selectedCategories: PropTypes.array,
   setIsDrawerOpen: PropTypes.func,
   setSelectedCategories: PropTypes.func,
   setSelectedRating: PropTypes.func,

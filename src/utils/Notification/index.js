@@ -31,4 +31,4 @@ const main = async () => {
     requestNotificationPermission()
 }
 
-main()
+// main()

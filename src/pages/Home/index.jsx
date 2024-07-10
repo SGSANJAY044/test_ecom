@@ -18,7 +18,6 @@ import HomeFeedSkeleton from "./components/HomeFeedSkeleton";
 const Nav = lazy(() => import("./components/Nav"));
 const HomeFeed = lazy(() => import("./components/HomeFeed"));
 
-const UseLoader = Loader(<></>);
 
 function Home() {
   const dispatch = useDispatch();
@@ -35,7 +34,7 @@ function Home() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
 
-  console.log(currentPage);
+  console.log(products);
   useEffect(() => {
     const callUser = async () => {
       let query = "";

@@ -28,7 +28,9 @@ function MyObserver({
     };
   }, []);
 
-  return <>{searchWord && selectedCategories && selectedRating && <></>}</>;
+  return (
+    <>{searchWord && selectedCategories && selectedRating ? <></> : <></>}</>
+  );
 }
 
 function HomeFeed({
