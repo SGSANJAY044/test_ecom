@@ -14,6 +14,7 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.currentProducts.data);
+  console.log(products);
   const [cartCount, setCartCount] = useState(1);
   const [currentCartStatus, setCurrentCartStatus] = useState(cartStatus);
   const addCart = (product) => {
