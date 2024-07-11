@@ -1,8 +1,10 @@
 const theme = {
     Sparrow: {
-        primary400: "#56B0BB",
-        primary300: "#9CCFD6",
-        primary500: "#4A9CA6",
+        colors: {
+            primary400: "#56B0BB",
+            primary300: "#9CCFD6",
+            primary500: "#4A9CA6",
+        }
     },
     Jarvis: {
         colors: {
