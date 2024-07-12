@@ -22,6 +22,5 @@ function AllRoutes() {
 
     </Routes>
   )
-} 
-
+}
 export default AllRoutes
