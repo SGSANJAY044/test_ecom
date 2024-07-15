@@ -1,6 +1,5 @@
 import React from "react";
 import CartCard from "./CartCard";
-import { BrowserRouter } from "react-router-dom";
 import "../index.scss";
 
 const product = {

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Box, Flex, Grid, Text } from "@sparrowengg/twigs-react";
+import { Box, Flex, Grid } from "@sparrowengg/twigs-react";
 import React, { useEffect, useState } from "react";
 import ProductCart from "./ProductCart";
 import { useSelector } from "react-redux";
@@ -83,7 +83,7 @@ function HomeFeed({
         <Grid css={{ padding: 10 }} width={300} gap={[20, 20]}>
           {productData && (
             <>
-              {productData.map((product, index) => (
+              {productData.map((product) => (
                 <ProductCart
                   product={product}
                   cartStatus={false}
@@ -126,5 +126,13 @@ HomeFeed.propTypes = {
   setProductsData: PropTypes.any,
   setTotalCart: PropTypes.any,
 };
+MyObserver.propTypes = {
+  searchWord: PropTypes.any,
+  selectedCategories: PropTypes.any,
+  selectedRating: PropTypes.any,
+  selector: PropTypes.any,
+  callback: PropTypes.func,
+};
+
 
 export default HomeFeed;

@@ -75,7 +75,7 @@ function FilterDrawer({
             </DropdownMenuTrigger>
 
             <DropdownMenuContent css={{ zIndex: 9999 }}>
-              {categories.map((category, index) => (
+              {categories.map((category) => (
                 <DropdownMenuItem
                   onClick={() => addFilter(category)}
                   key={categories}

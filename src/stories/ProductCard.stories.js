@@ -1,3 +1,4 @@
+import React from "react";
 import ProductCard from "../pages/Product/components/ProductCard";
 
 export default {

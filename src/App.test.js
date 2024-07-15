@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Nav from './pages/Product/components/Nav';
 import ProductCard from 'pages/Product/components/ProductCard';

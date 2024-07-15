@@ -59,9 +59,9 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
       >
         {[...Array(5)].map((index, value) =>
           value <= Math.round(product.rating) - 1 ? (
-            <FaStar className="yellow-star" />
+            <FaStar className="yellow-star" key={value} />
           ) : (
-            <FaStar className="star" />
+            <FaStar className="star" key={value} />
           )
         )}
       </Flex>

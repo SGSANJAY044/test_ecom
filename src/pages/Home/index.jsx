@@ -2,7 +2,7 @@ import React, { lazy, useEffect, useMemo, useState } from "react";
 import "./index.scss";
 
 import API from "api/index";
-import { Flex, toast, Pagination } from "@sparrowengg/twigs-react";
+import { Flex, toast } from "@sparrowengg/twigs-react";
 
 import { useSelector, useDispatch } from "react-redux";
 import FilterDrawer from "pages/Home/components/FilterDrawer";
@@ -12,7 +12,7 @@ import {
   setTotalCount,
 } from "../../redux/Products";
 
-import Loader from "../../components/Loader";
+// import Loader from "../../components/Loader";
 import HomeFeedSkeleton from "./components/HomeFeedSkeleton";
 
 const Nav = lazy(() => import("./components/Nav"));

@@ -53,15 +53,26 @@ ProductReviewCard.Review = function Review() {
 
 ProductReviewCard.Rating = function Rating() {
     const review = useProductReviewContext()
-    return <Flex css={{
-        fontSize: '$2xl'
-    }} gap={5}>
-        {
-            [...Array(5)].map((index, value) => (
-                value <= Math.round(review.rating) - 1 ? <FaStar className='yellow-star' style={{ fontSize: '20px' }} key={index} /> : <FaStar className='star' style={{ fontSize: '20px' }} />
-            ))
-        }
-    </Flex>
+    return (
+      <Flex
+        css={{
+          fontSize: "$2xl",
+        }}
+        gap={5}
+      >
+        {[...Array(5)].map((index, value) =>
+          value <= Math.round(review.rating) - 1 ? (
+            <FaStar
+              className="yellow-star"
+              style={{ fontSize: "20px" }}
+              key={index}
+            />
+          ) : (
+            <FaStar className="star" style={{ fontSize: "20px" }} key={value} />
+          )
+        )}
+      </Flex>
+    );
 }
 
 export default ProductReviewCard

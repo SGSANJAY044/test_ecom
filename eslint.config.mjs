@@ -1,19 +1,16 @@
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import { fixupConfigRules } from "@eslint/compat";
+
+
 export default [
     {
-        languageOptions: {
-            globals: globals.node
-        },
-        rules: {
-            'no-redeclare': 'off',
-            'eslint-plugin/require-meta-docs-url':
-                ['error', { 'pattern': 'https://github.com/cypress-io/eslint-plugin-cypress/blob/master/docs/rules/{{name}}.md' }],
-            'eslint-plugin/require-meta-docs-description': 'error',
-            'eslint-plugin/meta-property-ordering': 'error',
-            'eslint-plugin/test-case-property-ordering': 'error',
-            'n/no-extraneous-require':
-                ['error', { 'allowModules': ['jest-config'] }],
-            'mocha/no-mocha-arrows': 'off',
-            'mocha/no-setup-in-describe': 'off'
-        }
+        ignores: ["test-results", "playwright-report"]
     },
-]
+    { files: ["**/*.{js,mjs,cjs,jsx}"] },
+    { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true, jest: true, es2024: true }, node: true } } },
+    { languageOptions: { globals: globals.browser } },
+    pluginJs.configs.recommended,
+    ...fixupConfigRules(pluginReactConfig),
+];

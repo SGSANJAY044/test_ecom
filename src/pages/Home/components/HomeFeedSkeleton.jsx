@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Text } from "@sparrowengg/twigs-react";
+import { Box, Flex, Grid } from "@sparrowengg/twigs-react";
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 
@@ -58,8 +58,8 @@ function HomeFeedSkeleton() {
         <Skeleton height={30} width={30} />
       </Flex>
       <Grid css={{ padding: 10 }} width={300} gap={[70, 20]}>
-        {[...Array(6)].map((index, value) => (
-          <HomeFeedSkeletonCard />
+        {[...Array(6)].map((value) => (
+          <HomeFeedSkeletonCard key={value}/>
         ))}
       </Grid>
     </>

@@ -31,9 +31,17 @@ function ProductDetails({ productData }) {
         >
           {[...Array(5)].map((index, value) =>
             value <= Math.round(productData.rating) - 1 ? (
-              <FaStar className="yellow-star" style={{ fontSize: "25px" }} />
+              <FaStar
+                className="yellow-star"
+                key={value}
+                style={{ fontSize: "25px" }}
+              />
             ) : (
-              <FaStar className="star" style={{ fontSize: "25px" }} />
+              <FaStar
+                className="star"
+                key={value}
+                style={{ fontSize: "25px" }}
+              />
             )
           )}
         </Flex>

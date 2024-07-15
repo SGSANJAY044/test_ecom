@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types"
+import React, { useEffect, useRef } from "react";
 import { Box, Flex, Text, toast } from "@sparrowengg/twigs-react";
 import ProductRow from "./ProductRow";
 import API from "api";
 import { useDispatch } from "react-redux";
-import { setTotalCount } from "../../../redux/Products";
 function ProductTable({ productData, setTotalCart, setProductsData }) {
   const scrollContainer = useRef();
 
@@ -119,6 +119,14 @@ function ProductTable({ productData, setTotalCart, setProductsData }) {
       )}
     </Flex>
   );
+}
+
+ProductTable.propTypes = {
+  productData: PropTypes.shape({
+    map: PropTypes.func
+  }),
+  setProductsData: PropTypes.func,
+  setTotalCart: PropTypes.any
 }
 
 export default ProductTable;

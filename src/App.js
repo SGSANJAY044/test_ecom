@@ -1,8 +1,8 @@
+import React from "react";
 import { BrowserRouter } from 'react-router-dom'
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { ThemeProvider } from '@sparrowengg/twigs-react';
 import "react-loading-skeleton/dist/skeleton.css";
-
 import AllRoutes from './AllRoutes';
 import I18n from './utils/I18n/I18n.jsx';
 import theme from './utils/Twigs/twigs.config'
@@ -19,7 +19,7 @@ function App() {
         <Suspense>
         <AllRoutes/>
         </Suspense>
-        </SkeletonTheme>
+        </SkeletonTheme> 
         <I18n />
       </ThemeProvider>
     </BrowserRouter>
