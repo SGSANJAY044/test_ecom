@@ -9,6 +9,12 @@ const ProductCard = lazy(() => import("./components/ProductCard"));
 
 const UseLoader = Loader(ProductCard)
 
+/**
+ *  The `Product` component fetches product data and reviews using API calls and displays them with a
+ *  loader until the data is loaded.
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Product() {
   const location = useLocation();
   const [productData, setProductData] = useState(null);

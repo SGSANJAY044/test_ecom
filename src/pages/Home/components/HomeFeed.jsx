@@ -9,6 +9,19 @@ import {
 } from "@sparrowengg/twigs-react-icons";
 import ProductTable from "./ProductTable";
 
+/**
+ *  The `MyObserver` function uses an IntersectionObserver to track the visibility of a specified
+ *  element and calls a callback function when it intersects with the viewport.
+ * @date 2024-07-15
+ * @param {any} {searchWord
+ * @param {any} selectedCategories
+ * @param {any} selectedRating
+ * @param {any} selector
+ * @param {any} callback
+ * @param {any} }
+ * @returns {any}
+ */
+
 function MyObserver({
   searchWord,
   selectedCategories,
@@ -33,6 +46,20 @@ function MyObserver({
   );
 }
 
+/**
+ * The `HomeFeed` function is a React component that displays a feed of products either in a grid or
+ * list view based on the `view` state.
+ * @date 2024-07-15
+ * @param {any} {searchWord
+ * @param {any} selectedCategories
+ * @param {any} selectedRating
+ * @param {any} setTotalCart
+ * @param {any} setProductsData
+ * @param {any} setCurrentPage
+ * @param {any} getData
+ * @param {any} }
+ * @returns {any}
+ */
 function HomeFeed({
   searchWord,
   selectedCategories,

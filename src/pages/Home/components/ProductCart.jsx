@@ -9,6 +9,16 @@ import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+/**
+ * This `ProductCart` function is a React component that represents a product card with options to add
+the product to the cart or buy it.
+ * @date 2024-07-15
+ * @param {any} {product
+ * @param {any} setTotalCart
+ * @param {any} cartStatus
+ * @param {any} setProducts}
+ * @returns {any}
+ */
 function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();

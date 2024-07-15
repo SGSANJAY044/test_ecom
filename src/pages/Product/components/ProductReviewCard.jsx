@@ -7,13 +7,21 @@ import { FaStar } from 'react-icons/fa';
 
 const ProductReviewContext = createContext();
 
-// coustom Hook 
+// custom Hook 
 const useProductReviewContext = () => {
     const data = useContext(ProductReviewContext);
     if (!data) console.log("No review Data");
     return data
 }
 
+/**
+ *  * The `ProductReviewCard` component in JavaScript React renders a card displaying a product review
+ * with customer details, review text, and star rating made with compound component pattern.
+ * @date 2024-07-15
+ * @param {any} {children
+ * @param {any} review}
+ * @returns {any}
+ */
 function ProductReviewCard({ children, review }) {
   return (
     <ProductReviewContext.Provider value={review}>

@@ -9,6 +9,15 @@ import { FaBagShopping } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+/**
+ *  The `ProductRow` function is a React component that represents a single row of a product in a list.
+ * @date 2024-07-15
+ * @param {any} {product
+ * @param {any} setTotalCart
+ * @param {any} cartStatus
+ * @param {any} setProducts}
+ * @returns {any}
+ */
 function ProductRow({ product, setTotalCart, cartStatus, setProducts }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();

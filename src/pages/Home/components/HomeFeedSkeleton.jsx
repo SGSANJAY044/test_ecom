@@ -2,6 +2,11 @@ import { Box, Flex, Grid } from "@sparrowengg/twigs-react";
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 
+/**
+ * The `HomeFeedSkeletonCard` function is creating a skeleton card component for a home feed.
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function HomeFeedSkeletonCard() {
   return (
     <Flex
@@ -47,6 +52,11 @@ function HomeFeedSkeletonCard() {
     </Flex>
   );
 }
+/**
+ * The `HomeFeedSkeleton` function is creating a skeleton layout for a home feed
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function HomeFeedSkeleton() {
   return (
     <>

@@ -4,6 +4,14 @@ import { Box, Flex, Text, toast } from "@sparrowengg/twigs-react";
 import ProductRow from "./ProductRow";
 import API from "api";
 import { useDispatch } from "react-redux";
+/**
+ * The `ProductTable` function is a React component that displays a table of products.
+ * @date 2024-07-15
+ * @param {any} {productData
+ * @param {any} setTotalCart
+ * @param {any} setProductsData}
+ * @returns {any}
+ */
 function ProductTable({ productData, setTotalCart, setProductsData }) {
   const scrollContainer = useRef();
 

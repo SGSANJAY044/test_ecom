@@ -19,6 +19,12 @@ const Nav = lazy(() => import("./components/Nav"));
 const HomeFeed = lazy(() => import("./components/HomeFeed"));
 
 
+/**
+ * The `Home` function in the provided code snippet is a React functional component that serves as the
+main component for the home page of a web application
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Home() {
   const dispatch = useDispatch();
 

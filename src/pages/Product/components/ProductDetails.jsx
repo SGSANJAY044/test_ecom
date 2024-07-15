@@ -4,6 +4,12 @@ import { Box, Button, Flex } from '@sparrowengg/twigs-react';
 import { FaBagShopping, FaStar } from 'react-icons/fa6';
 import { useTranslation } from "react-i18next";
 
+/**
+ * The `ProductDetails` function is a React component that takes in a prop `productData`.
+ * @date 2024-07-15
+ * @param {any} {productData}
+ * @returns {any}
+ */
 function ProductDetails({ productData }) {
   const { t } = useTranslation();
   return (

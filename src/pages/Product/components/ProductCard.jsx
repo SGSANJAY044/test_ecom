@@ -3,6 +3,15 @@ import React from 'react'
 import { Tabs, TabsList, TabsTrigger, TabsContent, Flex } from "@sparrowengg/twigs-react";
 import ProductDetails from './ProductDetails';
 import ProductReviews from './ProductReviews';
+/**
+ * This code defines a React functional component named `ProductCard`. The component takes in two
+ *  props, `productData` and `productReviews`. Inside the component, it renders a layout using Flexbox
+ *  for styling.
+ * @date 2024-07-15
+ * @param {any} {productData
+ * @param {any} productReviews}
+ * @returns {any}
+ */
 function ProductCard({ productData, productReviews }) {
     return (
       <Flex

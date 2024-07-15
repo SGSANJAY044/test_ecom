@@ -4,6 +4,13 @@ import { Box, Button, Flex, Text } from "@sparrowengg/twigs-react";
 import { FaBagShopping } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * The `CartCard` function is a React component that displays product information in a card format with
+ * an option to navigate to the product details page
+ * @date 2024-07-15
+ * @param {any} {product}
+ * @returns {any}
+ */
 function CartCard({ product }) {
   const navigate = useNavigate();
   return (

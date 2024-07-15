@@ -27,6 +27,15 @@ import { SearchIcon } from "@sparrowengg/twigs-react-icons";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
+/**
+ * The below function is a React functional component called `Nav` that represents a navigation bar for a
+website or application.
+ * @date 2024-07-15
+ * @param {any} {setSearchWord
+ * @param {any} totalCart
+ * @param {any} setIsDrawerOpen}
+ * @returns {any}
+ */
 function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();

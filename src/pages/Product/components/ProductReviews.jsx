@@ -3,6 +3,13 @@ import { Flex } from "@sparrowengg/twigs-react";
 import React from "react";
 import ProductReviewCard from "./ProductReviewCard";
 
+/**
+ * This code defines a React functional component named `ProductReviews` that takes a prop
+ * `productReviews`. 
+ * @date 2024-07-15
+ * @param {any} {productReviews}
+ * @returns {any}
+ */
 function ProductReviews({ productReviews }) {
   console.log(productReviews);
   return (

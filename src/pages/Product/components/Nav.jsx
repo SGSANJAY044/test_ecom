@@ -2,6 +2,11 @@ import React from 'react'
 import logo from '../../../assets/surveysparrow_logo.jpeg'
 import { Flex, Avatar, Box } from '@sparrowengg/twigs-react'
 
+/**
+ * The `function Nav()` is a React functional component that defines a navigation bar. 
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Nav() {
     return (
       <Flex

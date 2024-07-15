@@ -6,6 +6,12 @@ import { useSelector } from "react-redux";
 const Nav = lazy(() => import("./components/Nav"));
 const CartCard = lazy(() => import("./components/CartCard"));
 
+/**
+ * The `Cart` component renders a list of products from the current cart state using `CartCard`
+ * components within a grid layout.
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Cart() {
   const currentCart = useSelector((state) => state.cart.currentCart);
   return (
