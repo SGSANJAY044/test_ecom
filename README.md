@@ -23,7 +23,7 @@ Setup and Installation
 To set up and run this project locally, follow these steps:
 
 1.  **Clone the repository:**
-    `git clone https://github.com/your-username/sparrow-mart.git
+    `git clone https://github.com/SGSANJAY044/test_ecom.git
     cd sparrow-mart`
 
 2.  **Install dependencies:**
