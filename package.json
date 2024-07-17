@@ -54,13 +54,7 @@
     },
     "globals": {
       "$": true
-    },
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:storybook/recommended",
-      "plugin:cypress/recommended"
-    ]
+    }
   },
   "browserslist": {
     "production": [

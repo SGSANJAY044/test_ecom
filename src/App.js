@@ -9,6 +9,7 @@ import theme from './utils/Twigs/twigs.config'
 import { useSelector } from 'react-redux';
 import { Suspense } from 'react';
 import './App.scss';
+import ServerDown from "components/ServerDown";
 function App() {
   const themeName = useSelector(state => state.theme.currentTheme)
   console.log(theme[themeName]);
@@ -17,7 +18,9 @@ function App() {
       <ThemeProvider theme={theme[themeName]}>
         <SkeletonTheme>
         <Suspense>
-        <AllRoutes/>
+            <ServerDown>
+              <AllRoutes />
+            </ServerDown>
         </Suspense>
         </SkeletonTheme> 
         <I18n />
