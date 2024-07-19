@@ -8,20 +8,17 @@ import {
   UnorderedListIcon,
 } from "@sparrowengg/twigs-react-icons";
 import ProductTable from "./ProductTable";
+import { setCartData } from "../../../redux/Cart";
 
 /**
- *  The `MyObserver` function uses an IntersectionObserver to track the visibility of a specified
- *  element and calls a callback function when it intersects with the viewport.
- * @date 2024-07-15
- * @param {any} {searchWord
+ * Uses an IntersectionObserver to track the visibility of a specified element and calls a callback function when it intersects with the viewport.
+ * @param {any} searchWord
  * @param {any} selectedCategories
  * @param {any} selectedRating
  * @param {any} selector
  * @param {any} callback
- * @param {any} }
  * @returns {any}
  */
-
 function MyObserver({
   searchWord,
   selectedCategories,
@@ -56,8 +53,7 @@ function MyObserver({
  * @param {any} setTotalCart
  * @param {any} setProductsData
  * @param {any} setCurrentPage
- * @param {any} getData
- * @param {any} }
+ * @param {any} getData }
  * @returns {any}
  */
 function HomeFeed({
@@ -70,9 +66,39 @@ function HomeFeed({
   getData,
 }) {
   const productData = useSelector(
-    (state) => state.products.currentProducts.data
+    (state) => state.products.currentProducts.data,
   );
   const [view, setView] = useState("Grid");
+
+  const addCartWrapper =
+    (
+      dispatch,
+      setProducts,
+      products,
+      cartCount,
+      setTotalCart,
+      setCurrentCartStatus,
+      setCartCount,
+    ) =>
+    (product) => {
+      dispatch(
+        setProducts(
+          products.map((currentproduct) => {
+            if (currentproduct.id === product.id) {
+              return {
+                ...product,
+                cartCount: currentproduct.cartCount + cartCount,
+              };
+            }
+            return currentproduct;
+          }),
+        ),
+      );
+      dispatch(setCartData({ ...product, cartCount: cartCount }));
+      setTotalCart((prev) => prev + cartCount);
+      setCurrentCartStatus(false);
+      setCartCount(1);
+    };
 
   return (
     <Box>
@@ -116,6 +142,7 @@ function HomeFeed({
                   cartStatus={false}
                   setTotalCart={setTotalCart}
                   setProducts={setProductsData}
+                  addCartWrapper={addCartWrapper}
                   key={product.id}
                 />
               ))}
@@ -127,7 +154,6 @@ function HomeFeed({
                 selector={".grid-observer"}
                 callback={(e) => {
                   if (e[0].isIntersecting) setCurrentPage((no) => no + 1);
-                  return;
                 }}
               />
             </>
@@ -138,6 +164,7 @@ function HomeFeed({
           productData={productData}
           setProductsData={setProductsData}
           setTotalCart={setTotalCart}
+          addCartWrapper={addCartWrapper}
         />
       )}
     </Box>
@@ -160,6 +187,5 @@ MyObserver.propTypes = {
   selector: PropTypes.any,
   callback: PropTypes.func,
 };
-
 
 export default HomeFeed;

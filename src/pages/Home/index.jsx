@@ -18,7 +18,6 @@ import HomeFeedSkeleton from "./components/HomeFeedSkeleton";
 const Nav = lazy(() => import("./components/Nav"));
 const HomeFeed = lazy(() => import("./components/HomeFeed"));
 
-
 /**
  * The `Home` function in the provided code snippet is a React functional component that serves as the
 main component for the home page of a web application
@@ -31,7 +30,7 @@ function Home() {
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts.data);
   const totalCount = useSelector(
-    (state) => state.products.currentProducts.totalcount
+    (state) => state.products.currentProducts.totalcount,
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCart, setTotalCart] = useState(0);
@@ -41,25 +40,29 @@ function Home() {
   const [selectedRating, setSelectedRating] = useState(0);
 
   console.log(products);
+  const getQuery = () => {
+    let query = "";
+    if (selectedCategories.length > 0)
+      query += "categories=" + selectedCategories.join("/");
+    if (selectedRating !== 0) {
+      if (selectedCategories.length > 0) query += "&";
+      query += "rating=" + selectedRating;
+    }
+    if (searchWord !== "") {
+      if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
+      query += "searchWord=" + searchWord;
+    }
+    return query;
+  };
   useEffect(() => {
     const callUser = async () => {
-      let query = "";
-      if (selectedCategories.length > 0)
-        query += "categories=" + selectedCategories.join("/");
-      if (selectedRating !== 0) {
-        if (selectedCategories.length > 0) query += "&";
-        query += "rating=" + selectedRating;
-      }
-      if (searchWord !== "") {
-        if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
-        query += "searchWord=" + searchWord;
-      }
+      const query = getQuery();
       const data = await API.get(`/products?${query}&pageno=${currentPage}`);
       console.log(data);
       dispatch(
         addProductsData(
-          data.data.data.map((item) => ({ ...item, cartCount: 0 }))
-        )
+          data.data.data.map((item) => ({ ...item, cartCount: 0 })),
+        ),
       );
     };
     if (currentPage <= totalCount / 9) {
@@ -70,24 +73,14 @@ function Home() {
   const getData = useMemo(
     () => async () => {
       try {
-        let query = "";
-        if (selectedCategories.length > 0)
-          query += "categories=" + selectedCategories.join("/");
-        if (selectedRating !== 0) {
-          if (selectedCategories.length > 0) query += "&";
-          query += "rating=" + selectedRating;
-        }
-        if (searchWord !== "") {
-          if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
-          query += "searchWord=" + searchWord;
-        }
+        const query = getQuery();
         const data = await API.get(`/products?${query}&pageno=1`);
         console.log(data);
         dispatch(setTotalCount(data.data.totalcount));
         dispatch(
           setProductsData(
-            data.data.data.map((item) => ({ ...item, cartCount: 0 }))
-          )
+            data.data.data.map((item) => ({ ...item, cartCount: 0 })),
+          ),
         );
       } catch (e) {
         console.log(e);
@@ -98,7 +91,7 @@ function Home() {
         });
       }
     },
-    [currentPage, searchWord, selectedCategories, selectedRating]
+    [currentPage, searchWord, selectedCategories, selectedRating],
   );
 
   useEffect(() => {

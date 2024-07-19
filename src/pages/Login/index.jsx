@@ -44,7 +44,7 @@ function Login() {
       email: res.user.email,
       password: "",
     });
-    login(true);
+    await login(true);
   };
 
   return (

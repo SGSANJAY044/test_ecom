@@ -24,7 +24,6 @@ import { CloseIcon } from "@sparrowengg/twigs-react-icons";
  * @param {any} selectedCategories
  * @param {any} setSelectedCategories
  * @param {any} setSelectedRating
- * @param {any} }
  * @returns {any}
  */
 function FilterDrawer({

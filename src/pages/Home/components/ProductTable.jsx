@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import { Box, Flex, Text, toast } from "@sparrowengg/twigs-react";
 import ProductRow from "./ProductRow";
@@ -9,10 +9,15 @@ import { useDispatch } from "react-redux";
  * @date 2024-07-15
  * @param {any} {productData
  * @param {any} setTotalCart
- * @param {any} setProductsData}
+ * @param {any} setProductsData }
  * @returns {any}
  */
-function ProductTable({ productData, setTotalCart, setProductsData }) {
+function ProductTable({
+  productData,
+  setTotalCart,
+  setProductsData,
+  addCartWrapper,
+}) {
   const scrollContainer = useRef();
 
   const dispatch = useDispatch();
@@ -30,8 +35,8 @@ function ProductTable({ productData, setTotalCart, setProductsData }) {
         const data = await API.get(`/products?offset=${start}&limit=7`);
         dispatch(
           setProductsData(
-            data.data.data.map((item) => ({ ...item, cartCount: 0 }))
-          )
+            data.data.data.map((item) => ({ ...item, cartCount: 0 })),
+          ),
         );
       }
     } catch (e) {
@@ -119,6 +124,7 @@ function ProductTable({ productData, setTotalCart, setProductsData }) {
                 cartStatus={false}
                 setTotalCart={setTotalCart}
                 setProducts={setProductsData}
+                addCartWrapper={addCartWrapper}
                 key={product.id}
               />
             ))}
@@ -131,10 +137,11 @@ function ProductTable({ productData, setTotalCart, setProductsData }) {
 
 ProductTable.propTypes = {
   productData: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }),
   setProductsData: PropTypes.func,
-  setTotalCart: PropTypes.any
-}
+  setTotalCart: PropTypes.any,
+  addCartWrapper: PropTypes.func,
+};
 
 export default ProductTable;

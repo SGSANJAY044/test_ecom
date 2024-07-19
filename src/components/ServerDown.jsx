@@ -17,7 +17,7 @@ function ServerDown({ children }) {
     const getHeartBeat = async () => {
       try {
         const data = await API.get();
-        if (data.data == "SparrowMart") setServerDown(false);
+        if (data.data === "SparrowMart") setServerDown(false);
       } catch (err) {
         console.log("Server Down!!", err);
       }
