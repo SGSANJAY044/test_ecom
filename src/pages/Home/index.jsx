@@ -1,26 +1,36 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { lazy, useEffect, useMemo, useState } from "react";
 import "./index.scss";
 
 import API from "api/index";
-import { Flex, toast, Pagination } from "@sparrowengg/twigs-react";
+import { Flex, toast } from "@sparrowengg/twigs-react";
 
 import { useSelector, useDispatch } from "react-redux";
 import FilterDrawer from "pages/Home/components/FilterDrawer";
-import { setProductsData, setTotalCount } from "../../redux/Products";
+import {
+  addProductsData,
+  setProductsData,
+  setTotalCount,
+} from "../../redux/Products";
 
-import Loader from "../../components/Loader";
-import HomeFeed from "./components/HomeFeed";
-import Nav from "./components/Nav";
+// import Loader from "../../components/Loader";
+import HomeFeedSkeleton from "./components/HomeFeedSkeleton";
 
-const UseLoader = Loader(HomeFeed);
+const Nav = lazy(() => import("./components/Nav"));
+const HomeFeed = lazy(() => import("./components/HomeFeed"));
 
+/**
+ * The `Home` function in the provided code snippet is a React functional component that serves as the
+main component for the home page of a web application
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Home() {
   const dispatch = useDispatch();
 
   const currentCart = useSelector((state) => state.cart.currentCart);
   const products = useSelector((state) => state.products.currentProducts.data);
   const totalCount = useSelector(
-    (state) => state.products.currentProducts.totalcount
+    (state) => state.products.currentProducts.totalcount,
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCart, setTotalCart] = useState(0);
@@ -29,27 +39,48 @@ function Home() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(0);
 
+  console.log(products);
+  const getQuery = () => {
+    let query = "";
+    if (selectedCategories.length > 0)
+      query += "categories=" + selectedCategories.join("/");
+    if (selectedRating !== 0) {
+      if (selectedCategories.length > 0) query += "&";
+      query += "rating=" + selectedRating;
+    }
+    if (searchWord !== "") {
+      if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
+      query += "searchWord=" + searchWord;
+    }
+    return query;
+  };
+  useEffect(() => {
+    const callUser = async () => {
+      const query = getQuery();
+      const data = await API.get(`/products?${query}&pageno=${currentPage}`);
+      console.log(data);
+      dispatch(
+        addProductsData(
+          data.data.data.map((item) => ({ ...item, cartCount: 0 })),
+        ),
+      );
+    };
+    if (currentPage <= totalCount / 9) {
+      callUser();
+    }
+  }, [currentPage]);
+
   const getData = useMemo(
     () => async () => {
       try {
-        let query = "";
-        if (selectedCategories.length > 0)
-          query += "categories=" + selectedCategories.join("/");
-        if (selectedRating !== 0) {
-          if (selectedCategories.length > 0) query += "&";
-          query += "rating=" + selectedRating;
-        }
-        if (searchWord !== "") {
-          if (selectedCategories.length > 0 || selectedRating > 0) query += "&";
-          query += "searchWord=" + searchWord;
-        }
-        const data = await API.get(`/products?${query}&pageno=${currentPage}`);
+        const query = getQuery();
+        const data = await API.get(`/products?${query}&pageno=1`);
         console.log(data);
         dispatch(setTotalCount(data.data.totalcount));
         dispatch(
           setProductsData(
-            data.data.data.map((item) => ({ ...item, cartCount: 0 }))
-          )
+            data.data.data.map((item) => ({ ...item, cartCount: 0 })),
+          ),
         );
       } catch (e) {
         console.log(e);
@@ -60,7 +91,7 @@ function Home() {
         });
       }
     },
-    [currentPage, searchWord, selectedCategories, selectedRating]
+    [currentPage, searchWord, selectedCategories, selectedRating],
   );
 
   useEffect(() => {
@@ -71,38 +102,43 @@ function Home() {
       return product;
     });
     setTotalCart(total);
-  }, [currentPage, searchWord, selectedCategories, selectedRating]);
+  }, [searchWord, selectedCategories, selectedRating]);
 
   return (
     <>
-      {/* Drawer */}
-      <FilterDrawer
-        isDrawerOpen={isDrawerOpen}
-        setIsDrawerOpen={setIsDrawerOpen}
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
-        setSelectedRating={setSelectedRating}
-      />
-      {/* Nav */}
-      <Nav
-        setIsDrawerOpen={setIsDrawerOpen}
-        totalCart={totalCart}
-        setSearchWord={setSearchWord}
-      />
-      {/* Shopping List */}
-      <Flex css={{ paddingTop: 20 }} gap={10} flexDirection="column">
-        <Pagination
-          activePage={currentPage}
-          itemsPerPage={10}
-          total={totalCount}
-          onChange={(event, page) => setCurrentPage(page)}
-        />
-        <UseLoader
-          setProductsData={setProductsData}
-          setTotalCart={setTotalCart}
-          loading={products.length <= 0}
-        />
-      </Flex>
+      {products ? (
+        <>
+          {/* Drawer */}
+          <FilterDrawer
+            isDrawerOpen={isDrawerOpen}
+            setIsDrawerOpen={setIsDrawerOpen}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            setSelectedRating={setSelectedRating}
+          />
+          {/* Nav */}
+          <Nav
+            setIsDrawerOpen={setIsDrawerOpen}
+            totalCart={totalCart}
+            setSearchWord={setSearchWord}
+            getData={getData}
+          />
+          {/* Shopping List */}
+          <Flex css={{ paddingTop: 20 }} gap={10} flexDirection="column">
+            <HomeFeed
+              searchWord={searchWord}
+              selectedCategories={selectedCategories}
+              selectedRating={selectedRating}
+              setProductsData={setProductsData}
+              setTotalCart={setTotalCart}
+              getData={getData}
+              setCurrentPage={setCurrentPage}
+            />
+          </Flex>
+        </>
+      ) : (
+        <HomeFeedSkeleton />
+      )}
     </>
   );
 }

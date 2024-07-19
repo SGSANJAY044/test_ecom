@@ -4,6 +4,12 @@ import { Box, Button, Flex } from '@sparrowengg/twigs-react';
 import { FaBagShopping, FaStar } from 'react-icons/fa6';
 import { useTranslation } from "react-i18next";
 
+/**
+ * The `ProductDetails` function is a React component that takes in a prop `productData`.
+ * @date 2024-07-15
+ * @param {any} {productData}
+ * @returns {any}
+ */
 function ProductDetails({ productData }) {
   const { t } = useTranslation();
   return (
@@ -31,9 +37,17 @@ function ProductDetails({ productData }) {
         >
           {[...Array(5)].map((index, value) =>
             value <= Math.round(productData.rating) - 1 ? (
-              <FaStar className="yellow-star" style={{ fontSize: "25px" }} />
+              <FaStar
+                className="yellow-star"
+                key={value}
+                style={{ fontSize: "25px" }}
+              />
             ) : (
-              <FaStar className="star" style={{ fontSize: "25px" }} />
+              <FaStar
+                className="star"
+                key={value}
+                style={{ fontSize: "25px" }}
+              />
             )
           )}
         </Flex>

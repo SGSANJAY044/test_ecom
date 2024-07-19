@@ -27,6 +27,15 @@ import { SearchIcon } from "@sparrowengg/twigs-react-icons";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
+/**
+ * The below function is a React functional component called `Nav` that represents a navigation bar for a
+website or application.
+ * @date 2024-07-15
+ * @param {any} {setSearchWord
+ * @param {any} totalCart
+ * @param {any} setIsDrawerOpen}
+ * @returns {any}
+ */
 function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -96,10 +105,10 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
             <MdLanguage className="lang-icon" />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={(e) => dispatch(setLanguageData("en"))}>
+            <DropdownMenuItem onClick={() => dispatch(setLanguageData("en"))}>
               {t("English")}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={(e) => dispatch(setLanguageData("tm"))}>
+            <DropdownMenuItem onClick={() => dispatch(setLanguageData("tm"))}>
               {t("Tamil")}
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -120,7 +129,7 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem
-              onClick={(e) => {
+              onClick={() => {
                 clear();
                 dispatch(setThemeData("Sparrow"));
               }}
@@ -138,7 +147,7 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
               </Flex>
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={(e) => {
+              onClick={() => {
                 clear();
                 dispatch(setThemeData("Edith"));
               }}
@@ -156,7 +165,7 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
               </Flex>
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={(e) => {
+              onClick={() => {
                 clear();
                 dispatch(setThemeData("Jarvis"));
               }}
@@ -174,7 +183,7 @@ function Nav({ setSearchWord, totalCart, setIsDrawerOpen }) {
               </Flex>
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={(e) => {
+              onClick={() => {
                 clear();
                 dispatch(setThemeData("Friday"));
               }}

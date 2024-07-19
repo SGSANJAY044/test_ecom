@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+Sparrow Mart 🛒 
+============
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Sparrow Mart** is a simple e-commerce website built with Create React App (CRA) and JavaScript. This project includes various dependencies and tools for development, testing, and building the application.
 
-## Available Scripts
+Table of Contents
+-----------------
 
-In the project directory, you can run:
+-   [Project Structure](#project-structure)
+-   [Setup and Installation](#setup-and-installation)
+-   [Available Scripts](#available-scripts)
+-   [Linting and Formatting](#linting-and-formatting)
+-   [Testing](#testing)
+
+Project Structure
+-----------------
+
+The project structure follows a typical CRA layout with additional configurations for Storybook, Cypress, and linting.
+
+Setup and Installation
+----------------------
+
+To set up and run this project locally, follow these steps:
+
+1.  **Clone the repository:**
+    `git clone https://github.com/your-username/sparrow-mart.git
+    cd sparrow-mart`
+
+2.  **Install dependencies:**
+    `npm install`
+
+3.  **Start the development server:**
+    `npm start`
+
+4.  **Open the project in your browser:** Open http://localhost:3000 to view it in the browser.
+
+Available Scripts
+-----------------
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in development mode. Open http://localhost:3000 to view it in the browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `npm build`
+
+Builds the app for production to the `build` folder.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
-### `npm run build`
+### `npm eject`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ejects the app configuration.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run storybook`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Starts Storybook for component development and documentation.
 
-### `npm run eject`
+### `npm run build-storybook`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Builds the Storybook for production.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `npm run prepare`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Prepares the project for commit hooks using Husky.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Linting and Formatting
+----------------------
 
-## Learn More
+The project uses ESLint and Prettier for linting and formatting. Linting and formatting are configured to run on staged files using Husky and lint-staged.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Linting configuration is located in the `.eslintrc` file, and lint-staged configuration is in the `package.json`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Testing
+-------
 
-### Code Splitting
+The project includes testing tools and configurations:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-   **React Testing Library**: For component testing.
+-   **Cypress**: For end-to-end testing.
+-   **Storybook**: For isolated component development and testing.
 
-### Analyzing the Bundle Size
+Run tests using the following commands:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+-   **Run unit tests:**
 
-### Making a Progressive Web App
+ 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  
 
-### Advanced Configuration
+    `npm test`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-   **Run end-to-end tests:**
 
-### Deployment
+ 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  
 
-### `npm run build` fails to minify
+    `npm run cypress`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   **Run Storybook:**
+
+ 
+
+  
+
+    `npm run storybook`

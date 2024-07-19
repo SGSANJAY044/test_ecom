@@ -2,39 +2,45 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Flex, Button, Text } from "@sparrowengg/twigs-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartData } from "../../../redux/Cart";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { FaBagShopping, FaStar } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
+/**
+ * This `ProductCart` function is a React component that represents a product card with options to add
+the product to the cart or buy it.
+ * @date 2024-07-15
+ * @param {any} { product
+ * @param {any} setTotalCart
+ * @param {any} cartStatus
+ * @param {any} setProducts }
+ * @returns {any}
+ */
+function ProductCart({
+  product,
+  setTotalCart,
+  cartStatus,
+  setProducts,
+  addCartWrapper,
+}) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.currentProducts.data);
+  console.log(products);
   const [cartCount, setCartCount] = useState(1);
   const [currentCartStatus, setCurrentCartStatus] = useState(cartStatus);
-  const addCart = (product) => {
-    dispatch(
-      setProducts(
-        products.map((currentproduct) => {
-          if (currentproduct.id === product.id) {
-            return {
-              ...product,
-              cartCount: currentproduct.cartCount + cartCount,
-            };
-          }
-          return currentproduct;
-        })
-      )
-    );
-    dispatch(setCartData({ ...product, cartCount: cartCount }));
-    setTotalCart((prev) => prev + cartCount);
-    setCurrentCartStatus(false);
-    setCartCount(0);
-  };
+  const addCart = addCartWrapper(
+    dispatch,
+    setProducts,
+    products,
+    cartCount,
+    setTotalCart,
+    setCurrentCartStatus,
+    setCartCount,
+  );
   return (
     <Flex
       css={{
@@ -58,10 +64,10 @@ function ProductCart({ product, setTotalCart, cartStatus, setProducts }) {
       >
         {[...Array(5)].map((index, value) =>
           value <= Math.round(product.rating) - 1 ? (
-            <FaStar className="yellow-star" />
+            <FaStar className="yellow-star" key={value} />
           ) : (
-            <FaStar className="star" />
-          )
+            <FaStar className="star" key={value} />
+          ),
         )}
       </Flex>
       <img src={product.image} alt={product.title} className="card-img" />
@@ -179,6 +185,7 @@ ProductCart.propTypes = {
   }),
   setProducts: PropTypes.func,
   setTotalCart: PropTypes.func,
+  addCartWrapper: PropTypes.func,
 };
 
 export default ProductCart;

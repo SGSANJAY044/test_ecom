@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Nav from './pages/Product/components/Nav';
 import ProductCard from 'pages/Product/components/ProductCard';
@@ -21,7 +22,7 @@ const productReviews = [
     rating: '2.0',
     customer: 'Eve Franklin'
   }
-]
+] 
 
 it('Product Nav Bar Check', () => {
   render(<Nav />);

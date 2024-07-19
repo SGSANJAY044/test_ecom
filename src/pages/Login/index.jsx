@@ -7,6 +7,11 @@ import { Box, Button, Flex, FormInput, toast } from "@sparrowengg/twigs-react";
 import { Link, useNavigate } from "react-router-dom";
 import { setUserData } from "../../redux/User";
 import google from "../../assets/Google_Icon.webp";
+/**
+ * The `Login` function in the provided code snippet is a React component that represents a login form.
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -39,7 +44,7 @@ function Login() {
       email: res.user.email,
       password: "",
     });
-    login(true);
+    await login(true);
   };
 
   return (

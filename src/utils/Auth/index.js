@@ -1,6 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
+console.log(process.env.apiKey);
 const firebaseConfig = {
     apiKey: "AIzaSyCDPMfVTkCYwuazEbr__uIBoY5cNQ-E7ic",
     authDomain: "sparrowmart-335c9.firebaseapp.com",

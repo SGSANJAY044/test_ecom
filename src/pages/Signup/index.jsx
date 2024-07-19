@@ -31,7 +31,7 @@ function Signup() {
       email: res.user.email,
       password: "password",
     });
-    signup();
+    await signup();
   };
   return (
     <Box>

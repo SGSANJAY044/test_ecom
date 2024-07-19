@@ -5,6 +5,11 @@ import { Flex, Avatar, Box } from '@sparrowengg/twigs-react'
 import { useDispatch } from 'react-redux';
 import { clearCartData } from '../../../redux/Cart';
 
+/**
+ * The `Nav` function is a React component that represents a navigation bar
+ * @date 2024-07-15
+ * @returns {any}
+ */
 function Nav() {
     const dispatch = useDispatch()
     return (

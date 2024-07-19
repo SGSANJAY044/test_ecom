@@ -16,6 +16,16 @@ import {
 } from "@sparrowengg/twigs-react";
 import { CloseIcon } from "@sparrowengg/twigs-react-icons";
 
+/**
+ * This `FilterDrawer` function is a React component that represents a filter drawer for products.
+ * @date 2024-07-15
+ * @param {any} {isDrawerOpen
+ * @param {any} setIsDrawerOpen
+ * @param {any} selectedCategories
+ * @param {any} setSelectedCategories
+ * @param {any} setSelectedRating
+ * @returns {any}
+ */
 function FilterDrawer({
   isDrawerOpen,
   setIsDrawerOpen,
@@ -24,12 +34,11 @@ function FilterDrawer({
   setSelectedRating,
 }) {
   const products = useSelector((state) => state.products.currentProducts.data);
-  const [categories, setCategories] = useState([
-    ...new Set(products.map((product) => product.category)),
-  ]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    setCategories([...new Set(products.map((product) => product.category))]);
+    if (products)
+      setCategories([...new Set(products.map((product) => product.category))]);
   }, [products]);
   const addFilter = (category) => {
     setSelectedCategories((prev) =>
@@ -76,7 +85,7 @@ function FilterDrawer({
             </DropdownMenuTrigger>
 
             <DropdownMenuContent css={{ zIndex: 9999 }}>
-              {categories.map((category, index) => (
+              {categories.map((category) => (
                 <DropdownMenuItem
                   onClick={() => addFilter(category)}
                   key={categories}
@@ -146,9 +155,7 @@ function FilterDrawer({
 
 FilterDrawer.propTypes = {
   isDrawerOpen: PropTypes.any,
-  selectedCategories: PropTypes.shape({
-    map: PropTypes.func,
-  }),
+  selectedCategories: PropTypes.array,
   setIsDrawerOpen: PropTypes.func,
   setSelectedCategories: PropTypes.func,
   setSelectedRating: PropTypes.func,

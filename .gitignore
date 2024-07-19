@@ -28,3 +28,7 @@ sonarqube/extensions
 sonarqube/data
 sonarqube/logs
 *storybook.log
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

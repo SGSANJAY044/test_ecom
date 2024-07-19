@@ -28,7 +28,7 @@ const main = async () => {
     checkPermission()
     await registerSW()
     // reg.showNotification("New Notification")
-    requestNotificationPermission()
+    await  requestNotificationPermission()
 }
 
 main()
